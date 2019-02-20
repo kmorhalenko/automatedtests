@@ -45,9 +45,14 @@ public interface Locators {
     String ROOM_IN_LEFT_SIDE_BAR = "//span[.='$1']";
     String RIGHT_SIDE_BAR_BUTTONS_BY_TITLE = "//*[@title='$1']";
     String RIGHT_SLIDE_BAR_BY_TITLE = "//span[contains(text(),'$1')]";
-    String USER_IN_ROOM_MEMBERS = "//div[@class='chat-container active']//div[@class='b-chat-top with-panel']//div[@class='inner-panel b-chat']//div[@class='body-wrap']//div[@class='b-tab-content']//div[@class='layout-content']//div[@class='tab-with-members roomMembers-wrapper']//div[@class='roomMembers']//div[@class='all-members']//div//div[contains(@class,'members')]//div//div[@class='dropdown-panel show-panel']//ul[contains(@class,'members-list')]//div[@class='member-menu']//div[@id='member-item-3009']//div[@id='member-item-3009-toggle']//div//div[@class='members-username'][contains(text(),'$1')]";
+    String USER_IN_ROOM_MEMBERS = "//*[@class='chat-container active']//*[@class='search-members']/following-sibling::ul/div[descendant::*[.='$1']]";
     String ADD_NEW_USER_TO_ROOM_ICON = "//i[contains(@class,'material-icons 25 md-dark')]";
     String REMOVE_FROM_ROOM_BUTTON = "//ul[@class='members-list scroll-disable']//a[@role='menuitem'][contains(text(),'Remove from')]";
+    String ASSIGN_TO_ADMINISTRATOR_IN_POPUP_USER_MENU_IN_RIGTS_SLIDE_BAR_IN_ROOM = "//a[contains(text(),'Assign as administrator')]";
+    String USER_BY_USERNAME_IN_ROOM_ADMINISTRATOR_LIST = "(//div[contains(text(), \"Room administration\")]/..//div[@class='member-info'][.='$1'])[1]";
+    String ASSIGT_NEW_ADMINISTRATOR_FIELD = "//input[@placeholder='Choose new administrator from room’s members']";
+    String INVITE_NEW_MEMBER_TO_ALREADY_CREATED_ROOM = "//div[@class='ue ue-username ue-username-person'][contains(text(),'$1')]";
+
 
     // *** REGISTRATION FORM ***
 
@@ -64,7 +69,7 @@ public interface Locators {
     String PASSWORD_FIELD_ONE_REGISTRATION_PAGE = "//*[@name='password']";
     String PASSWORD_FIELD_TWO_REGISTRATION_PAGE = "//*[@name='password2']";
     String ERROR_MESSAGE = "//*[@class='text-danger']";
-    String INVITE_NEW_MEMBER_TO_ALREADY_CREATED_ROOM = "//div[@class='ue ue-username ue-username-person'][contains(text(),'$1')]";
+
 
 
     // ***PROFILE SETTINGS ***
@@ -107,5 +112,17 @@ public interface Locators {
     String RARIO_BUTTON_WHEN_CRATED_ROOM = "//label[.='$1']";
     String DELETE_ROOM_BUTTON = "//span[contains(@class,'delete-room one-user')]";
     String FIELD_BY_LABLE_NAME_ROOM_CREATE_POPUP = "//*[@class=\"field-name\"] [contains(text(),\"$1\")]/..//input";
+    String CHOOSE_NEW_ADMINISTRATOR_FIELD = "";
+
+
+
+
+    //***TEMP MAIL***
+    String FIELD_WITH_TEMP_EMAIL = "//input[@id='mail']";
+    String SUBJECT_OF_MAIL = "//a[@class='title-subject']";
+    String OPEN_FIRST_MAIL_BUTTON = "(//span[@class='glyphicon glyphicon-chevron-right'])[1]";
+    String OPEN_MAIL_IF_IT_ONE = "//span[@class='glyphicon glyphicon-chevron-right']";
+    String TEXT_OF_MESSAGE_WITH_CODE_OF_CONFIRMATION = "//p[contains(text(),'Here is your code confirmation')]";
+    String OPEN_MESSAGE_BY_NUMBER_LINK = "(//a[@class='link'])[$1]";
 }
 
