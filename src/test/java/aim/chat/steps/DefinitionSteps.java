@@ -430,6 +430,7 @@ public class DefinitionSteps {
 
     @Then("^popup \"([^\"]*)\" is open$")
     public void popupIsOpen(String titleName) throws Throwable {
+
         user.popupIsOpen(titleName);
     }
 
@@ -514,7 +515,7 @@ public class DefinitionSteps {
 
     @Then("^user with name \"([^\"]*)\" is on room members list$")
     public void userWithNameIsOnRoomMembersList(String userName) throws Throwable {
-       user.userWithNameIsOnRoomMembersList(userName);
+        user.userWithNameIsOnRoomMembersList(userName);
     }
 
     @Then("^user with name \"([^\"]*)\" is not on room members list$")
@@ -536,17 +537,99 @@ public class DefinitionSteps {
     public void deleteUserFromRoom(String userName) throws Throwable {
         user.deleteUserFromRoom(userName);
     }
+
+    @When("^assign to administrate user with name \"([^\"]*)\"$")
+    public void assignToAdministrateUserWithName(String userName) throws Throwable {
+        user.assignToAdministrateUserWithName(userName);
+    }
+
+    @Then("^user \"([^\"]*)\" has been add to administrators list$")
+    public void userHasBeenAddToAdministratorsList(String userName) throws Throwable {
+        user.userHasBeenAddToAdministratorsList(userName);
+
+    }
+
+    @Then("^user \"([^\"]*)\" has not been add to administrators list$")
+    public void userHasNotBeenAddToAdministratorsList(String userName) throws Throwable {
+        user.userHasNotBeenAddToAdministratorsList(userName);
+
+    }
+
+    @When("^type to field assign new administrator user name \"([^\"]*)\"$")
+    public void typeToFieldAssignNewAdministratorUserName(String userName) throws Throwable {
+        user.typeToFieldAssignNewAdministratorUserName(userName);
+    }
+
+    @When("^click to user name \"([^\"]*)\" in drop down list of users$")
+    public void clickToUserNameInDropDownListOfUsers(String userName) throws Throwable {
+        user.clickToUserNameInDropDownListOfUsers(userName);
+
+    }
+
+    @Then("^user leave the room \"([^\"]*)\"$")
+    public void userLeaveTheRoom(String roomName) throws Throwable {
+        user.userLeaveTheRoom(roomName);
+
+    }
+
+    @When("^click button by name Leave Room$")
+    public void clickButtonByNameLeaveRoom() {
+        user.clickButtonByNameLeaveRoom();
+    }
+
+    @When("^open new tab \"([^\"]*)\"$")
+    public void openNewTab(String url) throws Throwable {
+        user.openNewTab(url);
+    }
+
+    @When("^switch to current tab \"([^\"]*)\"$")
+    public void switchToCurrentTab(int numberOfTab) throws Throwable {
+        user.switchToCurrentTab(numberOfTab);
+    }
+
+    @When("^copy value of email to clipboard$")
+    public void copyValueOfEmailToClipboard() {
+        user.copyValueOfEmailToClipboard();
+    }
+
+    @When("^paste temp mail from clipboard$")
+    public void pasteTempMailFromClipboard() {
+        user.pasteTempMailFromClipboard();
+    }
+
+    @Then("^wait until mail with subject \"([^\"]*)\" is come$")
+    public void waitUntilMailWithSubjectIsCome(String subjectOfMail) throws Throwable {
+        user.waitUntilMailWithSubjectIsCome(subjectOfMail);
+    }
+
+    @When("^copy confirmation code to clipboard$")
+    public void copyConfirmationCodeToClipboard() {
+        user.copyConfirmationCodeToClipboard();
+    }
+
+    @When("^open message by number \"([^\"]*)\"$")
+    public void openMessageByNumber(String numberOfMesaage) throws Throwable {
+        user.openMessageByNumber(numberOfMesaage);
+    }
+
+    @Then("^message has been open$")
+    public void messageHasBeenOpen() {
+        user.messageHasBeenOpen();
+
+    }
+
+    @When("^paste confirmation code to field$")
+    public void pasteConfirmationCodeToField() {
+        user.pasteConfirmationCodeToField();
+    }
+
+    @When("^enter valid user name and passwords$")
+    public void enterValidUserNameAndPasswords() {
+        user.enterValidUserNameAndPasswords();
+    }
+
+    @When("^login under a random user$")
+    public void loginUnderARandomUser() {
+        user.loginUnderARandomUser();
+    }
 }
-
-//
-//    @Then("^Avatar is changed$")
-//    public void avatarIsChanged() {
-//        user.avatarIsChanged();
-//    }
-
-
-//    @Then("^elements is visible$")
-//    public void elementsIsVisible() {
-//        anna.elementsIsVisible();
-//    }
-

@@ -1,20 +1,25 @@
 package aim.chat.steps.serenity;
 
+import aim.chat.Tools.RandomGenerator;
 import aim.chat.locators.Locators;
 import aim.chat.pages.CommonElements;
 import aim.chat.pages.DictionaryPage;
+import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.Step;
 import org.junit.Assert;
 
 import java.net.URISyntaxException;
 
-public class EndUserSteps {
-
+public class EndUserSteps extends PageObject {
+    RandomGenerator randomGenerator;
     DictionaryPage dictionaryPage;
     CommonElements commonElements;
 
     String oldValue = "";
     String newValue = "";
+    String clipboard = "";
+    String confirmationCode = "";
+    String randomNum = "";
 
 
 //    @Step
@@ -31,17 +36,17 @@ public class EndUserSteps {
     public void should_see_definition(String definition) {
         assertThat(dictionaryPage.getDefinitions(), hasItem(containsString(definition)));
     }*/
-
-    @Step
-    public void is_the_home_page() {
-        dictionaryPage.open();
-    }
-
+//
 //    @Step
-//    public void looks_for(String term) {
-//        enters(term);
-//        starts_search();
+//    public void is_the_home_page() {
+//        dictionaryPage.open();
 //    }
+//
+////    @Step
+////    public void looks_for(String term) {
+////        enters(term);
+////        starts_search();
+////    }
 
     @Step
     public void theUserIsOnTheChatLoginPage() {
@@ -83,10 +88,6 @@ public class EndUserSteps {
         dictionaryPage.passwordFieldClear();
     }
 
-    @Step
-    public void buttonSubmitUnusible() {
-        dictionaryPage.buttonSubmitUnusable();
-    }
 
     @Step
     public void erorMessagesShow() {
@@ -95,7 +96,7 @@ public class EndUserSteps {
 
     @Step
     public void buttonSubmitUnusable() {
-        dictionaryPage.buttonSubmitUnusable();
+        Assert.assertFalse("Button submit is active", dictionaryPage.buttonSubmitUnusable());
     }
 
     @Step
@@ -208,16 +209,19 @@ public class EndUserSteps {
 
     @Step
     public void typeToLoginField(String text) {
+
         dictionaryPage.typeToFieldLogin(text);
     }
 
     @Step
     public void typeToPasswordOneField(String text) {
+
         dictionaryPage.typeToPasswordOneField(text);
     }
 
     @Step
     public void typeToPasswordTwoField(String text) {
+
         dictionaryPage.typeToPasswordTwoField(text);
     }
 
@@ -233,6 +237,7 @@ public class EndUserSteps {
 
     @Step
     public void clickLinkRegistrationOnTheLoginPage() {
+
         dictionaryPage.clickLinkRegistrationOnTheLoginPage();
     }
 
@@ -259,6 +264,7 @@ public class EndUserSteps {
         dictionaryPage.upload(dictionaryPage.
                 getAbsolutePathOfFile(text)).
                 to(dictionaryPage.getElementByXpath("//input[@type='file']"));
+        commonElements.elementIsVisible(3, "//i[contains(@class,'fa fa-undo')]");
 
 
     }
@@ -364,7 +370,7 @@ public class EndUserSteps {
 
     @Step
     public void directWithUserIsDeletedFromList(String userName) {
-        commonElements.waitUntilElementToBeInvisible(250, Locators.DIRECT_WITH_USER.replace("$1", userName));
+        commonElements.elementIsInvisible(5, Locators.DIRECT_WITH_USER.replace("$1", userName));
         Assert.assertFalse("direct with user " + userName + " is not deleted from list", dictionaryPage.directWithUserIsDeletedFromList(userName));
     }
 
@@ -558,38 +564,142 @@ public class EndUserSteps {
         Assert.assertTrue("Right slide bar is not opened", dictionaryPage.rightSlideBarIsOpened(titleName));
     }
 
+    @Step
     public void clickButtonByNameDeleteRoom() {
         dictionaryPage.clickButtonByNameDeleteRoom();
     }
 
+    @Step
     public void popupIsClosed(String titleName) {
         Assert.assertFalse("Pop-up window is opened", dictionaryPage.popupIsClosed(titleName));
 
     }
 
+    @Step
     public void userWithNameIsOnRoomMembersList(String userName) {
-        Assert.assertTrue("User "+userName+" is not added to room members list", dictionaryPage.userWithNameIsOnRoomMembersList(userName));
+        Assert.assertTrue("User " + userName + " is not added to room members list", dictionaryPage.userWithNameIsOnRoomMembersList(userName));
     }
 
+    @Step
     public void userWithNameIsNotOnRoomMembersList(String userName) {
-        Assert.assertTrue("User "+userName+" is added to room members list", dictionaryPage.userWithNameIsNotOnRoomMembersList(userName));
+        Assert.assertTrue("User " + userName + " is added to room members list", dictionaryPage.userWithNameIsNotOnRoomMembersList(userName));
     }
 
+    @Step
     public void clickAddNewMemberToRoomIcon() {
         dictionaryPage.clickAddNewMemberToRoomIcon();
     }
 
+    @Step
     public void inviteMemberWhenRoomAlreadyCreated(String userName) {
         dictionaryPage.inviteMemberWhenRoomAlreadyCreated(userName);
     }
 
+    @Step
     public void deleteUserFromRoom(String userName) {
         dictionaryPage.deleteUserFromRoom(userName);
     }
 
+    @Step
+    public void assignToAdministrateUserWithName(String userName) {
+        dictionaryPage.assignToAdministrateUserWithName(userName);
+    }
 
-//    public void avatarIsChanged() {
-//        Assert.assertNotSame("Avatar is not changed", dictionaryPage.oldValueOfAvatar, dictionaryPage.newValueOfAvatar);
-//
-//    }
+    @Step
+    public void userHasBeenAddToAdministratorsList(String userName) {
+        Assert.assertTrue("User " + userName + " has not add to administrator list", dictionaryPage.userHasBeenAddToAdministratorsList(userName));
+    }
+
+    @Step
+    public void userHasNotBeenAddToAdministratorsList(String userName) {
+        Assert.assertFalse("user " + userName + " is added to administrator list", dictionaryPage.userHasBeenAddToAdministratorsList(userName));
+    }
+
+    @Step
+    public void typeToFieldAssignNewAdministratorUserName(String userName) {
+        dictionaryPage.typeToFieldAssignNewAdministratorUserName(userName);
+    }
+
+    @Step
+    public void clickToUserNameInDropDownListOfUsers(String userName) {
+        dictionaryPage.clickToUserNameInDropDownListOfUsers(userName);
+    }
+
+    @Step
+    public void userLeaveTheRoom(String roomName) {
+        commonElements.elementIsInvisible(5, Locators.ROOM_IN_LEFT_SIDE_BAR.replace("$1", roomName));
+        Assert.assertTrue("user is not leave the room " + roomName, dictionaryPage.roomWithNameIsDeleted(roomName));
+    }
+
+    @Step
+    public void clickButtonByNameLeaveRoom() {
+        dictionaryPage.clickButtonByNameLeaveRoom();
+    }
+
+    @Step
+    public void openNewTab(String url) {
+        dictionaryPage.openNewTab(url);
+    }
+
+    @Step
+    public void switchToCurrentTab(int numberOfTab) {
+        dictionaryPage.switchToCurrentTab(numberOfTab);
+    }
+
+    @Step
+    public void copyValueOfEmailToClipboard() {
+        dictionaryPage.copyValueOfEmailToClipboard();
+        clipboard = dictionaryPage.copyValueOfEmailToClipboard();
+    }
+
+    @Step
+    public void pasteTempMailFromClipboard() {
+
+        String tempMail = "";
+        tempMail = clipboard;
+        dictionaryPage.pasteTempMailFromClipboard(tempMail);
+    }
+
+    @Step
+    public void waitUntilMailWithSubjectIsCome(String subjectOfMail) {
+        Assert.assertEquals("Mail is not came", subjectOfMail, dictionaryPage.waitUntilMailWithSubjectIsCome());
+    }
+
+    @Step
+    public void copyConfirmationCodeToClipboard() {
+
+        String textOfMessage = dictionaryPage.copyConfirmationCodeToClipboard();
+        confirmationCode = textOfMessage.replace("Here is your code confirmation ", "");
+
+    }
+
+    @Step
+    public void openMessageByNumber(String numberOfMesaage) {
+        dictionaryPage.openMessageByNumber(numberOfMesaage);
+    }
+
+    @Step
+    public void messageHasBeenOpen() {
+        Assert.assertTrue("Message has not been opened", dictionaryPage.messageHasBeenOpen());
+    }
+
+    @Step
+    public void pasteConfirmationCodeToField() {
+        dictionaryPage.pasteConfirmationCodeToField(confirmationCode);
+    }
+
+    @Step
+    public void enterValidUserNameAndPasswords() {
+        randomNum = randomGenerator.randomGeneratorNumeric(4);
+        String randomUserName = "tsetuser" + randomNum;
+        String randomPassword = "qwerty" + randomNum;
+
+        dictionaryPage.enterUserNameWhenRegistrate(randomUserName);
+        dictionaryPage.enterPasswordsWhenRegistrate(randomPassword);
+    }
+
+    @Step
+    public void loginUnderARandomUser() {
+        dictionaryPage.loginUnderARandomUser(randomNum, clipboard);
+    }
 }

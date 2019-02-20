@@ -5,13 +5,14 @@ import aim.chat.locators.Locators;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
-import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 
 @DefaultUrl("https://192.168.217.23/index.html#/login")
 public class DictionaryPage extends CommonElements {
@@ -26,6 +27,7 @@ public class DictionaryPage extends CommonElements {
                 .map(element -> element.getText())
                 .collect(Collectors.toList());
     }*/
+
 
     public void theUserIsOnTheChatLoginPage() {
 
@@ -77,14 +79,15 @@ public class DictionaryPage extends CommonElements {
 
     }
 
-    public void buttonSubmitUnusable() {
-        WebElement Submit = $(Locators.SUBMIT_BUTTON);
-        if (Submit.isEnabled()) {
-            $(Locators.SUBMIT_BUTTON).click();
-            System.out.println("the button is enabled");
-        } else {
-            System.out.println("the button is disabled");
-        }
+    public boolean buttonSubmitUnusable() {
+        return $(Locators.SUBMIT_BUTTON).isEnabled();
+//        WebElement Submit = $(Locators.SUBMIT_BUTTON);
+//        if (Submit.isEnabled()) {
+//            $(Locators.SUBMIT_BUTTON).click();
+//            System.out.println("the button is enabled");
+//        } else {
+//            System.out.println("the button is disabled");
+//        }
     }
 
     public boolean errorMessagesShow() {
@@ -282,22 +285,13 @@ public class DictionaryPage extends CommonElements {
     }
 
     public void userClickAvatarSaveButton() {
+//        elementIsVisible(4 ,"//div[contains(@class,'cropper-drag-box')]");
+
         $(Locators.AVATAR_SAVE_BUTTON).click();
-        waitABit(2000);
-    }
-
-//    public void avatarIsChanged() {
-//        if (firstPictureSrc().equals(secondPictureSrc())) {
-//
-//        }
-//
-//
-//    }
-
-    public void srcOfFirstPicture(String first) {
-        $(Locators.AVATAR_FRAME).getAttribute("src").equals(first);
+        waitABit(1000);
 
     }
+
 
     public void typeToFieldValue(String fieldName, String value) {
         $(Locators.PROFILE_SETTINGS_FIELD.replace("$1", fieldName)).clear();
@@ -434,11 +428,13 @@ public class DictionaryPage extends CommonElements {
 
 
     public void userClickNotificationsSwitcher() {
-        waitABit(500);
+//        waitABit(500);
         $(Locators.BELL_ICON).click();
-        waitFor(Locators.MUTE_DROP_DOWN_WINDOW).isElementVisible(By.id(Locators.MUTE_NOTIFICATONS_SWITCHER));
+        elementIsVisible(5, Locators.MUTE_DROP_DOWN_WINDOW);
+//        waitFor(Locators.MUTE_DROP_DOWN_WINDOW).isElementVisible(By.id(Locators.MUTE_NOTIFICATONS_SWITCHER));
         $(Locators.MUTE_NOTIFICATONS_SWITCHER).click();
         $(Locators.SEARCH_FIELD).click();
+        elementIsInvisible(5, Locators.MUTE_DROP_DOWN_WINDOW);
     }
 
     public boolean messageAboutNotificationsIsVisible() {
@@ -568,20 +564,119 @@ public class DictionaryPage extends CommonElements {
 
     public void inviteMemberWhenRoomAlreadyCreated(String userName) {
 //        $(Locators.SEARCH_FIELD_WHEN_ADD_USER_TO_ROOM).type(userName)
-        $(Locators.INVITE_NEW_MEMBER_TO_ALREADY_CREATED_ROOM.replace("$1",userName)).click();
+        $(Locators.INVITE_NEW_MEMBER_TO_ALREADY_CREATED_ROOM.replace("$1", userName)).click();
     }
 
     public void deleteUserFromRoom(String userName) {
         $(Locators.USER_IN_ROOM_MEMBERS.replace("$1", userName)).click();
-        elementIsVisible(3,Locators.REMOVE_FROM_ROOM_BUTTON);
+        elementIsVisible(3, Locators.REMOVE_FROM_ROOM_BUTTON);
         $(Locators.REMOVE_FROM_ROOM_BUTTON).click();
+        elementIsClicable(5, Locators.BUTTON_BY_NAME.replace("$1", "Remove"));
+        $(Locators.BUTTON_BY_NAME.replace("$1", "Remove")).click();
 
     }
 
+    public void assignToAdministrateUserWithName(String userName) {
+        $(Locators.USER_IN_ROOM_MEMBERS.replace("$1", userName)).click();
+        elementIsVisible(3, Locators.ASSIGN_TO_ADMINISTRATOR_IN_POPUP_USER_MENU_IN_RIGTS_SLIDE_BAR_IN_ROOM);
+        $(Locators.ASSIGN_TO_ADMINISTRATOR_IN_POPUP_USER_MENU_IN_RIGTS_SLIDE_BAR_IN_ROOM).click();
+        elementIsClicable(5, Locators.BUTTON_BY_NAME.replace("$1", "Assign"));
+        $(Locators.BUTTON_BY_NAME.replace("$1", "Assign")).click();
 
-//    public void valueToFieldSaved(String fieldName) {
-//        $(Locators.PROFILE_SETTINGS_FIELD.replace("$1", fieldName)).getAttribute("value").equals();
-//    }
+
+    }
+
+    public boolean userHasBeenAddToAdministratorsList(String userName) {
+        return elementIsVisible(5, Locators.USER_BY_USERNAME_IN_ROOM_ADMINISTRATOR_LIST.replace("$1", userName));
+    }
+
+    public void typeToFieldAssignNewAdministratorUserName(String userName) {
+        $(Locators.ASSIGT_NEW_ADMINISTRATOR_FIELD).type(userName);
+    }
+
+
+    public void clickToUserNameInDropDownListOfUsers(String userName) {
+        elementIsVisible(5, Locators.USER_NAME_IN_DROP_DOWN_MENU.replace("$1", userName));
+        $(Locators.USER_NAME_IN_DROP_DOWN_MENU.replace("$1", userName)).click();
+    }
+
+    public void clickButtonByNameLeaveRoom() {
+        $("//div[@class='chat-container active']//span[contains(text(),'Leave Room')]").click();
+    }
+
+
+    public void openNewTab(String url) {
+        ((JavascriptExecutor) getDriver()).executeScript("window.open()");
+        switchToCurrentTab(2);
+        getDriver().get(url);
+
+    }
+
+    public void switchToCurrentTab(int numberOfTab) {
+        ArrayList<String> tabs = new ArrayList<String>(getDriver().getWindowHandles());
+        getDriver().switchTo().window(tabs.get(numberOfTab - 1));
+//        waitABit(5000);
+    }
+
+    public String copyValueOfEmailToClipboard() {
+
+        return $(Locators.FIELD_WITH_TEMP_EMAIL).getAttribute("Value");
+    }
+
+    public void pasteTempMailFromClipboard(String tempMail) {
+        $(Locators.EMAIL_FIELD_REGISTRATION_FORM_ONE).type(tempMail);
+
+    }
+
+    public String waitUntilMailWithSubjectIsCome() {
+        elementIsVisible(30, Locators.SUBJECT_OF_MAIL);
+        return $(Locators.SUBJECT_OF_MAIL).getText();
+    }
+
+    public String copyConfirmationCodeToClipboard() {
+        elementIsVisible(5, Locators.TEXT_OF_MESSAGE_WITH_CODE_OF_CONFIRMATION);
+        return $(Locators.TEXT_OF_MESSAGE_WITH_CODE_OF_CONFIRMATION).getText();
+
+    }
+
+    public void openMessageByNumber(String numberOfMesaage) {
+        elementIsVisible(5, Locators.OPEN_MESSAGE_BY_NUMBER_LINK.replace("$1", numberOfMesaage));
+        $(Locators.OPEN_MESSAGE_BY_NUMBER_LINK.replace("$1", numberOfMesaage)).click();
+    }
+
+    public boolean messageHasBeenOpen() {
+        return elementIsVisible(15, Locators.TEXT_OF_MESSAGE_WITH_CODE_OF_CONFIRMATION);
+    }
+
+    public void pasteConfirmationCodeToField(String confirmationCode) {
+        $(Locators.CONFIRMATION_CODE_FIELD_REGISTRATION_PAGE).type(confirmationCode);
+//        waitABit(5000);
+    }
+
+    public void enterUserNameWhenRegistrate(String randomUserName) {
+        $(Locators.LOGIN_FIELD_REGISTRATION_PAGE).type(randomUserName);
+        waitABit(5000);
+    }
+
+    public void enterPasswordsWhenRegistrate(String randomPassword) {
+        $(Locators.PASSWORD_FIELD_ONE_REGISTRATION_PAGE).clear();
+        $(Locators.PASSWORD_FIELD_ONE_REGISTRATION_PAGE).type(randomPassword);
+
+        $(Locators.PASSWORD_FIELD_TWO_REGISTRATION_PAGE).clear();
+        $(Locators.PASSWORD_FIELD_TWO_REGISTRATION_PAGE).type(randomPassword);
+
+    }
+
+    public void loginUnderARandomUser(String randomNum, String clipboard) {
+
+        $(Locators.LOGIN_FIELD).clear();
+        $(Locators.LOGIN_FIELD).type(clipboard);
+
+        $(Locators.PASSWORD_FIELD).clear();
+        $(Locators.PASSWORD_FIELD).type("qwerty"+randomNum);
+
+        $(Locators.SUBMIT_BUTTON).click();
+    }
 }
 
 
