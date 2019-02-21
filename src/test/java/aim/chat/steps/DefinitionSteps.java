@@ -1,6 +1,7 @@
 package aim.chat.steps;
 
 import aim.chat.steps.serenity.EndUserSteps;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -631,5 +632,57 @@ public class DefinitionSteps {
     @When("^login under a random user$")
     public void loginUnderARandomUser() {
         user.loginUnderARandomUser();
+    }
+
+    @When("^click \"([^\"]*)\" link$")
+    public void clickLink(String textLink) throws Throwable {
+        user.clickLink(textLink);
+
+    }
+
+    @When("^put number of messages from mail into current session$")
+    public void putNumberOfMessagesFromMailIntoCurrentSession() {
+        user.putNumberOfMessagesFromMailIntoCurrentSession();
+    }
+
+    @Then("^new message with subject \"([^\"]*)\" is come$")
+    public void newMessageWithSubjectIsCome(String subjectOfMessage) throws Throwable {
+        user.newMessageWithSubjectIsCome(subjectOfMessage);
+    }
+
+    @When("^enter random email to field Email$")
+    public void enterRandomEmailToFieldEmail() {
+        user.enterRandomEmailToFieldEmail();
+
+    }
+
+    @When("^update mail list in temp mail$")
+    public void updateMailListInTempMail() {
+        user.updateMailListInTempMail();
+    }
+
+    @When("^open last message in temp mail$")
+    public void openLastMessageInTempMail() {
+        user.openLastMessageInTempMail();
+    }
+
+    @When("^copy generate password to clipboard$")
+    public void copyGeneratePasswordToClipboard() {
+        user.copyGeneratePasswordToClipboard();
+    }
+
+    @When("^type to field generated pass from clipboard$")
+    public void typeToFieldGeneratedPassFromClipboard() {
+        user.typeToFieldGeneratedPassFromClipboard();
+    }
+
+    @When("^type to login field value of tamp mail$")
+    public void typeToLoginFieldValueOfTampMail() {
+        user.typeToLoginFieldValueOfTampMail();
+    }
+
+    @When("^type to password field genereted password$")
+    public void typeToPasswordFieldGeneretedPassword() {
+        user.typeToPasswordFieldGeneretedPassword();
     }
 }

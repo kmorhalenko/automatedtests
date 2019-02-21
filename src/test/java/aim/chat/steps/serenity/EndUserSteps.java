@@ -4,6 +4,7 @@ import aim.chat.Tools.RandomGenerator;
 import aim.chat.locators.Locators;
 import aim.chat.pages.CommonElements;
 import aim.chat.pages.DictionaryPage;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.Step;
 import org.junit.Assert;
@@ -20,6 +21,7 @@ public class EndUserSteps extends PageObject {
     String clipboard = "";
     String confirmationCode = "";
     String randomNum = "";
+    String generatedPassword = "";
 
 
 //    @Step
@@ -701,5 +703,60 @@ public class EndUserSteps extends PageObject {
     @Step
     public void loginUnderARandomUser() {
         dictionaryPage.loginUnderARandomUser(randomNum, clipboard);
+    }
+
+    @Step
+    public void clickLink(String textLink) {
+        dictionaryPage.clickLink(textLink);
+    }
+
+    @Step
+    public void putNumberOfMessagesFromMailIntoCurrentSession() {
+        Serenity.getCurrentSession().put("MESSAGES", dictionaryPage.getAllMessagesFromMail().size());
+    }
+
+
+    @Step
+    public void newMessageWithSubjectIsCome(String subjectOfMessage) {
+
+//        int quantityOfAllMessagesFromCurrentSession = (int) Serenity.getCurrentSession().get("MESSAGES");
+
+        Assert.assertTrue("New message is not comes time is off", dictionaryPage.waitUntillMessageComes());
+
+//        Assert.assertEquals((quantityOfAllMessagesFromCurrentSession + 1), dictionaryPage.getAllMessagesFromMail().size());
+
+        Assert.assertTrue("New message with subject " + subjectOfMessage + " is not come", dictionaryPage.newMessageWithSubjectIsCome(subjectOfMessage));
+    }
+
+    @Step
+    public void enterRandomEmailToFieldEmail() {
+        dictionaryPage.enterRandomEmailToFieldEmail(clipboard);
+    }
+
+    @Step
+    public void updateMailListInTempMail() {
+        dictionaryPage.updateMailListInTempMail();
+    }
+
+    @Step
+    public void openLastMessageInTempMail() {
+        dictionaryPage.openLastMessageInTempMail();
+
+    }
+
+    public void copyGeneratePasswordToClipboard() {
+        generatedPassword = dictionaryPage.copyGeneratePasswordToClipboard();
+    }
+
+    public void typeToFieldGeneratedPassFromClipboard() {
+        dictionaryPage.typeToFieldGeneratedPassFromClipboard(generatedPassword);
+    }
+
+    public void typeToLoginFieldValueOfTampMail() {
+        dictionaryPage.typeToLoginFieldValueOfTampMail(clipboard);
+    }
+
+    public void typeToPasswordFieldGeneretedPassword() {
+        dictionaryPage.typeToPasswordFieldGeneretedPassword(generatedPassword);
     }
 }

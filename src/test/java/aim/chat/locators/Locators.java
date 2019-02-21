@@ -2,6 +2,8 @@ package aim.chat.locators;
 
 public interface Locators {
 
+    String GENERETED_PASSWORD_FIELD = "//input[@placeholder='Generated password']";
+
 
     //  *** LOGIN PAGE ***
 
@@ -64,7 +66,7 @@ public interface Locators {
     String ERROR_MESSAGE_EMAIL_FIELD_REGISTRATION_PAGE = "//div[@class='text-danger']";
     String TEXT_AIM_PRO_SOFT_REGISTRATION_PAGE = "//div[@class='text-center']//h1[1]";
     String SUBMIT_BUTTON_SECOND_PAGE_OF_REGISTRATION = "//button[@type='submit']";
-    String LINK_SEND_AGAIN = "//a[@class='send-again']";
+    String LINK_BY_NAME = "//a[contains(text(),'$1')]";
     String CONFIRMATION_CODE_FIELD_REGISTRATION_PAGE = "//input[@placeholder='Email confirmation code']";
     String PASSWORD_FIELD_ONE_REGISTRATION_PAGE = "//*[@name='password']";
     String PASSWORD_FIELD_TWO_REGISTRATION_PAGE = "//*[@name='password2']";
@@ -124,5 +126,8 @@ public interface Locators {
     String OPEN_MAIL_IF_IT_ONE = "//span[@class='glyphicon glyphicon-chevron-right']";
     String TEXT_OF_MESSAGE_WITH_CODE_OF_CONFIRMATION = "//p[contains(text(),'Here is your code confirmation')]";
     String OPEN_MESSAGE_BY_NUMBER_LINK = "(//a[@class='link'])[$1]";
+    String MESSAGES = "//*[@id='mails']//tbody//tr";
+    String BACK_TO_LIST_OF_MAILS_BUTTON = "//a[@class='linkbord']";
+    String GENERATE_PASSWORD_CONTAINER = "(//strong)[2]";
 }
 

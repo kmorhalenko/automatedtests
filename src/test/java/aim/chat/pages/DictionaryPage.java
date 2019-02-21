@@ -5,6 +5,7 @@ import aim.chat.locators.Locators;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -13,9 +14,12 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 @DefaultUrl("https://192.168.217.23/index.html#/login")
 public class DictionaryPage extends CommonElements {
+
+    public int idLastMessage;
 //    public Object oldValueOfAvatar;
 //        WebElement oldAvatar = $(Locators.AVATAR_FRAME).getValue(src);
 
@@ -65,7 +69,8 @@ public class DictionaryPage extends CommonElements {
 
 
     public boolean loginPageOpen() {
-        waitABit(500);
+//        waitABit(500);
+        elementIsVisible(15,(Locators.LOGIN_FIELD));
         return $(Locators.LOGIN_FIELD).isVisible();
     }
 
@@ -615,7 +620,7 @@ public class DictionaryPage extends CommonElements {
     public void switchToCurrentTab(int numberOfTab) {
         ArrayList<String> tabs = new ArrayList<String>(getDriver().getWindowHandles());
         getDriver().switchTo().window(tabs.get(numberOfTab - 1));
-//        waitABit(5000);
+
     }
 
     public String copyValueOfEmailToClipboard() {
@@ -655,7 +660,6 @@ public class DictionaryPage extends CommonElements {
 
     public void enterUserNameWhenRegistrate(String randomUserName) {
         $(Locators.LOGIN_FIELD_REGISTRATION_PAGE).type(randomUserName);
-        waitABit(5000);
     }
 
     public void enterPasswordsWhenRegistrate(String randomPassword) {
@@ -673,9 +677,81 @@ public class DictionaryPage extends CommonElements {
         $(Locators.LOGIN_FIELD).type(clipboard);
 
         $(Locators.PASSWORD_FIELD).clear();
-        $(Locators.PASSWORD_FIELD).type("qwerty"+randomNum);
+        $(Locators.PASSWORD_FIELD).type("qwerty" + randomNum);
 
         $(Locators.SUBMIT_BUTTON).click();
+    }
+
+    public void clickLink(String textLink) {
+        $(Locators.LINK_BY_NAME.replace("$1", textLink)).click();
+
+    }
+
+    public List<WebElementFacade> getAllMessagesFromMail() {
+        List<WebElementFacade> list = findAll(By.xpath(Locators.MESSAGES));
+        return list;
+    }
+
+    public boolean newMessageWithSubjectIsCome(String subjectOfMessage) {
+        List<WebElementFacade> list = findAll(By.xpath(Locators.MESSAGES));
+        idLastMessage = findAll(By.xpath(Locators.MESSAGES)).size() - 1;
+        if ((list.get(idLastMessage).getText().contains(subjectOfMessage))) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkThatMessagesHaveBeenIncreasedByOne() {
+        int quantityFromCurrentSession = (int) Serenity.getCurrentSession().get("MESSAGES");
+
+        if (findAll(By.xpath(Locators.MESSAGES)).size() == (quantityFromCurrentSession + 1)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean waitUntillMessageComes() {
+        int counter = 0;
+        while ((counter <= 30) && !(checkThatMessagesHaveBeenIncreasedByOne())) {
+            waitABit(500);
+            counter++;
+        }
+        return checkThatMessagesHaveBeenIncreasedByOne();
+    }
+
+    public void enterRandomEmailToFieldEmail(String clipboard) {
+        $(Locators.EMAIL_FIELD_REGISTRATION_FORM_ONE).sendKeys(clipboard);
+    }
+
+    public void updateMailListInTempMail() {
+        $(Locators.BACK_TO_LIST_OF_MAILS_BUTTON).click();
+        elementIsVisible(10, Locators.FIELD_WITH_TEMP_EMAIL);
+    }
+
+    public void openLastMessageInTempMail() {
+        String str = Integer.toString(idLastMessage + 1);
+        elementIsVisible(5, Locators.OPEN_MESSAGE_BY_NUMBER_LINK.replace("$1", str));
+        $(Locators.OPEN_MESSAGE_BY_NUMBER_LINK.replace("$1", str)).click();
+        waitMSeconds(3000);
+
+    }
+
+    public String copyGeneratePasswordToClipboard() {
+
+        return $(Locators.GENERATE_PASSWORD_CONTAINER).getText();
+    }
+
+    public void typeToFieldGeneratedPassFromClipboard(String generatedPassword) {
+        $(Locators.GENERETED_PASSWORD_FIELD).sendKeys(generatedPassword);
+    }
+
+    public void typeToLoginFieldValueOfTampMail(String clipboard) {
+        $(Locators.LOGIN_FIELD).sendKeys(clipboard);
+    }
+
+    public void typeToPasswordFieldGeneretedPassword(String generatedPassword) {
+        $(Locators.PASSWORD_FIELD).sendKeys(generatedPassword);
     }
 }
 
