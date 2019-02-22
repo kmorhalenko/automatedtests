@@ -49,16 +49,16 @@ Feature:
   Scenario: 03.002 Validation of fields of profile
     When chat has been opened
     When user opened profile settings
+    When type to field "phone" value "abcf"
+    Then error messages show
+    When clear field "phone"
+    When type to field "phone" value "@@!#"
+    Then error messages show
+    When clear field "phone"
     When type to field "phone" value "12"
     Then error messages show
     When clear field "phone"
     When type to field "phone" value "123456789012345678901"
-    Then error messages show
-    When clear field "phone"
-    When type to field "phone" value "@@&!"
-    Then error messages show
-    When clear field "phone"
-    When type to field "phone" value "abcf"
     Then error messages show
     When clear field "phone"
 

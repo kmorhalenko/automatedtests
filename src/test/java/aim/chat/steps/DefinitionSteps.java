@@ -7,6 +7,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
+import org.junit.Test;
 
 import java.net.URISyntaxException;
 
@@ -681,8 +682,8 @@ public class DefinitionSteps {
         user.typeToLoginFieldValueOfTampMail();
     }
 
-    @When("^type to password field genereted password$")
-    public void typeToPasswordFieldGeneretedPassword() {
-        user.typeToPasswordFieldGeneretedPassword();
+    @When("^type to password field generated password$")
+    public void typeToPasswordFieldGeneratedPassword() {
+        user.typeToPasswordFieldGeneratedPassword();
     }
 }

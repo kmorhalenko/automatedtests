@@ -39,6 +39,7 @@ public interface Locators {
     String CHAT_UNMUTED_MESSAGE = "//div[@class = 'toast-title'][ contains(text(), 'Chat is unmuted')]";
     String MESSAGE_ABOUT_NOTIFICATIONS = "//div[@class = 'toast-title']";
     String SEARCH_FIELD = "//input[contains(@placeholder,'Search...')]";
+    String INVITE_NEW_MEMBER_OF_ROOM_SEARCH_FIELD = "//input[@placeholder='Search']";
     String USER_NAME_IN_USER_MENU = "//p[@class='username']";
     String CREATE_ROOM_BUTTON = "//a[@class='add-room-button']";
     String MODAL_WINDOW_TITLE = "//h4[@class='modal-title']";

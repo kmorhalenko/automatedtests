@@ -6,7 +6,7 @@ Feature: Changing accaunt settings
     Then chat has been opened
     Given open page "https://192.168.217.23/index.html#/chat/settings/account"
     Then accaunt settings page is opened
-    When type to field "email" value "k.test2019@gmail.com"
+    When type to field "email" value "k_test1@rambler.ru"
 #                                      email of exist user
     When click button save for "Email:" field
     Then error messages show

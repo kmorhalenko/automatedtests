@@ -159,7 +159,7 @@ public class EndUserSteps extends PageObject {
 
     @Step
     public void registrationPageOneIsOpen() {
-        dictionaryPage.registrationPageOneIsOpen();
+        Assert.assertTrue("page 1 of registration is not opened", dictionaryPage.registrationPageOneIsOpen());
     }
 
     @Step
@@ -383,7 +383,8 @@ public class EndUserSteps extends PageObject {
 
     @Step
     public void userHaveUnreadMessagesFromUser(String userName) {
-        Assert.assertEquals("user " + userName + " is not have unread messages", "1", dictionaryPage.userHaveUnreadMessagesFromUser(userName));
+        Assert.assertTrue("user " + userName + " is not have unread messages",dictionaryPage.userHaveUnreadMessagesFromUser(userName));
+        Assert.assertEquals("Icon about 1 unread message from" + userName + " is displayed", "1", dictionaryPage.valueOfUnreadMessages(userName));
     }
 
     @Step
@@ -391,9 +392,12 @@ public class EndUserSteps extends PageObject {
         dictionaryPage.openUnreadMessageFromUser(userName);
     }
 
+
+
     @Step
     public void iconAboutUnreadMessageFromIsNotDisplayed(String userName) {
-        Assert.assertFalse("Icon about unread message from" + userName + " is displayed", dictionaryPage.iconAboutUnreadMessageFromIsNotDisplayed(userName));
+
+        Assert.assertTrue("Icon about unread message from" + userName + " is displayed", dictionaryPage.iconAboutUnreadMessageFromIsNotDisplayed(userName));
     }
 
     @Step
@@ -488,7 +492,7 @@ public class EndUserSteps extends PageObject {
 
     @Step
     public void userNameInUserMenuIsChangedTo(String userName) {
-        Assert.assertEquals("User name not same", userName, dictionaryPage.userNameInUserMenuIsChangedTo());
+        Assert.assertEquals("User name not same", userName, dictionaryPage.userNameInUserMenuIsChangedTo(userName));
     }
 
     @Step
@@ -693,7 +697,7 @@ public class EndUserSteps extends PageObject {
     @Step
     public void enterValidUserNameAndPasswords() {
         randomNum = randomGenerator.randomGeneratorNumeric(4);
-        String randomUserName = "tsetuser" + randomNum;
+        String randomUserName = "testuser" + randomNum;
         String randomPassword = "qwerty" + randomNum;
 
         dictionaryPage.enterUserNameWhenRegistrate(randomUserName);
@@ -756,7 +760,7 @@ public class EndUserSteps extends PageObject {
         dictionaryPage.typeToLoginFieldValueOfTampMail(clipboard);
     }
 
-    public void typeToPasswordFieldGeneretedPassword() {
-        dictionaryPage.typeToPasswordFieldGeneretedPassword(generatedPassword);
+    public void typeToPasswordFieldGeneratedPassword() {
+        dictionaryPage.typeToPasswordFieldGeneratedPassword(generatedPassword);
     }
 }

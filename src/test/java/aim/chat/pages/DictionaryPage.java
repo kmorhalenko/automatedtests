@@ -70,8 +70,8 @@ public class DictionaryPage extends CommonElements {
 
     public boolean loginPageOpen() {
 //        waitABit(500);
-        elementIsVisible(15,(Locators.LOGIN_FIELD));
-        return $(Locators.LOGIN_FIELD).isVisible();
+        return elementIsVisible(15, (Locators.LINK_BY_NAME.replace("$1", "Forgot your password?")));
+
     }
 
     public void loginFieldClear() {
@@ -113,13 +113,14 @@ public class DictionaryPage extends CommonElements {
     }
 
     public void clickButtonSubmit() {
-        elementIsClicable(5, Locators.SUBMIT_BUTTON);
+        elementIsClicable(10, Locators.SUBMIT_BUTTON);
         $(Locators.SUBMIT_BUTTON).click();
 
     }
 
     public boolean errorUnauthorizedMessageShow() {
-        return $(Locators.ERROR_MESSAGE_UNAUTHORIZED).isVisible();
+
+        return elementIsVisible(10, Locators.ERROR_MESSAGE_UNAUTHORIZED);
 
     }
 
@@ -135,7 +136,7 @@ public class DictionaryPage extends CommonElements {
     }
 
     public boolean errorMessagesOnlyLatinShow() {
-        return $("//div[@class='text-danger']").isVisible();
+        return $(Locators.ERROR_MESSAGE).isVisible();
     }
 
 
@@ -166,9 +167,10 @@ public class DictionaryPage extends CommonElements {
         return $(Locators.XPATH_LOGIN_PAGE_PASSWORD_FIELD).getAttribute("type").equals("password");
     }
 
-    public void registrationPageOneIsOpen() {
+    public boolean registrationPageOneIsOpen() {
         //  getDriver().manage().window().maximize();
         getDriver().get("https://192.168.217.23/index.html#/registration");
+        return elementIsVisible(10, Locators.EMAIL_FIELD_REGISTRATION_FORM_ONE);
     }
 
     public void inputFieldEmailOnPageOneOfRegistrationIsEmpty() {
@@ -217,11 +219,8 @@ public class DictionaryPage extends CommonElements {
     }
 
     public boolean pageTwoOfRegistrationIsOpened() {
-        if ($(Locators.PASSWORD_FIELD_ONE_REGISTRATION_PAGE).isVisible() && $(Locators.PASSWORD_FIELD_TWO_REGISTRATION_PAGE).isVisible()) {
-            return true;
-        } else {
-            return false;
-        }
+        elementIsVisible(10, Locators.PASSWORD_FIELD_ONE_REGISTRATION_PAGE);
+        return elementIsVisible(10, Locators.PASSWORD_FIELD_TWO_REGISTRATION_PAGE);
 
     }
 
@@ -250,11 +249,7 @@ public class DictionaryPage extends CommonElements {
     }
 
     public boolean errorMessagesOnRegistrationPageIsShow() {
-        if ($(Locators.ERROR_MESSAGE).isVisible()) {
-            return true;
-        } else {
-            return false;
-        }
+        return elementIsVisible(10, Locators.ERROR_MESSAGE);
     }
 
     public void clickLinkRegistrationOnTheLoginPage() {
@@ -268,6 +263,7 @@ public class DictionaryPage extends CommonElements {
 
 
     public void clickButtonSave() {
+        elementIsVisible(10, Locators.SAVE_BUTTON);
         $(Locators.SAVE_BUTTON).click();
     }
 
@@ -413,8 +409,8 @@ public class DictionaryPage extends CommonElements {
 
     }
 
-    public String userHaveUnreadMessagesFromUser(String userName) {
-        return $(Locators.UNREAD_MESSAGES.replace("$1", userName)).getText();
+    public boolean userHaveUnreadMessagesFromUser(String userName) {
+        return elementIsVisible(10, Locators.UNREAD_MESSAGES.replace("$1", userName));
     }
 
     public void openUnreadMessageFromUser(String userName) {
@@ -423,7 +419,8 @@ public class DictionaryPage extends CommonElements {
 
 
     public boolean iconAboutUnreadMessageFromIsNotDisplayed(String userName) {
-        return $(Locators.UNREAD_MESSAGES.replace("$1", userName)).isVisible();
+        waitABit(5000);
+        return elementIsInvisible(10, Locators.UNREAD_MESSAGES.replace("$1", userName));
     }
 
 
@@ -433,10 +430,9 @@ public class DictionaryPage extends CommonElements {
 
 
     public void userClickNotificationsSwitcher() {
-//        waitABit(500);
+
         $(Locators.BELL_ICON).click();
         elementIsVisible(5, Locators.MUTE_DROP_DOWN_WINDOW);
-//        waitFor(Locators.MUTE_DROP_DOWN_WINDOW).isElementVisible(By.id(Locators.MUTE_NOTIFICATONS_SWITCHER));
         $(Locators.MUTE_NOTIFICATONS_SWITCHER).click();
         $(Locators.SEARCH_FIELD).click();
         elementIsInvisible(5, Locators.MUTE_DROP_DOWN_WINDOW);
@@ -476,8 +472,8 @@ public class DictionaryPage extends CommonElements {
         return elementIsVisible(5, Locators.USERNAME_IS_SUCSESSFULY_CHANGED_MESSAGE);
     }
 
-    public String userNameInUserMenuIsChangedTo() {
-        waitABit(2000);
+    public String userNameInUserMenuIsChangedTo(String userName) {
+        waitUntilElementToBeVisible(10, "//p[@class='username'][contains(text(),'$1')]".replace("$1", userName));
         return $(Locators.USER_NAME_IN_USER_MENU).getText();
 
     }
@@ -491,6 +487,7 @@ public class DictionaryPage extends CommonElements {
     }
 
     public void typeRoomNameWhenCratedRoom(String roomName) {
+
         $(Locators.INPUT_FIELD_BY_LABLE_NAME.replace("$1", "Name")).clear();
         $(Locators.INPUT_FIELD_BY_LABLE_NAME.replace("$1", "Name")).type(roomName);
     }
@@ -569,6 +566,10 @@ public class DictionaryPage extends CommonElements {
 
     public void inviteMemberWhenRoomAlreadyCreated(String userName) {
 //        $(Locators.SEARCH_FIELD_WHEN_ADD_USER_TO_ROOM).type(userName)
+        elementIsVisible(5, Locators.INVITE_NEW_MEMBER_OF_ROOM_SEARCH_FIELD);
+        $(Locators.INVITE_NEW_MEMBER_OF_ROOM_SEARCH_FIELD).sendKeys(userName);
+
+        elementIsVisible(5, Locators.INVITE_NEW_MEMBER_TO_ALREADY_CREATED_ROOM);
         $(Locators.INVITE_NEW_MEMBER_TO_ALREADY_CREATED_ROOM.replace("$1", userName)).click();
     }
 
@@ -747,11 +748,17 @@ public class DictionaryPage extends CommonElements {
     }
 
     public void typeToLoginFieldValueOfTampMail(String clipboard) {
+        elementIsVisible(5, (Locators.LOGIN_FIELD));
         $(Locators.LOGIN_FIELD).sendKeys(clipboard);
     }
 
-    public void typeToPasswordFieldGeneretedPassword(String generatedPassword) {
+    public void typeToPasswordFieldGeneratedPassword(String generatedPassword) {
         $(Locators.PASSWORD_FIELD).sendKeys(generatedPassword);
+    }
+
+    public String valueOfUnreadMessages(String userName) {
+        elementIsInvisible(5, Locators.UNREAD_MESSAGES.replace("$1", userName));
+        return $(Locators.UNREAD_MESSAGES.replace("$1", userName)).getText();
     }
 }
 
