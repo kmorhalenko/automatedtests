@@ -3,5 +3,6 @@
     <ignoreAction name="Java/Declaration/Split Declaration" />
     <ignoreAction name="Java/Refactorings/Introduce local variable" />
     <ignoreAction name="Java/Control Flow/Create switch statement" />
+    <ignoreAction name="Java/Annotations/Edit method contract" />
   </component>
 </application>
