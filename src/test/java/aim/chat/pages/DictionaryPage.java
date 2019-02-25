@@ -19,7 +19,9 @@ import java.util.List;
 @DefaultUrl("https://192.168.217.23/index.html#/login")
 public class DictionaryPage extends CommonElements {
 
+
     public int idLastMessage;
+
 //    public Object oldValueOfAvatar;
 //        WebElement oldAvatar = $(Locators.AVATAR_FRAME).getValue(src);
 
@@ -367,7 +369,7 @@ public class DictionaryPage extends CommonElements {
 
     public void addUserToDirectList(String userName) {
         $(Locators.ADD_DIRECT_ICON).click();
-        $(Locators.SEARCH_DIRECT_FIELD).isCurrentlyVisible();
+        $(Locators.SEARCH_DIRECT_FIELD).isVisible();
         $(Locators.SEARCH_DIRECT_FIELD).typeAndEnter(userName);
     }
 
@@ -380,7 +382,7 @@ public class DictionaryPage extends CommonElements {
     }
 
     public void sendMessageWithText(String textOfMessage) {
-        $(Locators.TYPE_MESSAGE_HERE_INPUT_FIELD).isCurrentlyVisible();
+        $(Locators.TYPE_MESSAGE_HERE_INPUT_FIELD).isVisible();
         $(Locators.TYPE_MESSAGE_HERE_INPUT_FIELD).clear();
         $(Locators.TYPE_MESSAGE_HERE_INPUT_FIELD).typeAndEnter(textOfMessage);
         waitABit(3000);
@@ -545,6 +547,7 @@ public class DictionaryPage extends CommonElements {
     }
 
     public void clickButtonByNameDeleteRoom() {
+        elementIsInvisible(10, "//span[contains(text(), 'Delete Room')]");
         $("//span[contains(text(), 'Delete Room')]").click();
     }
 
@@ -607,6 +610,7 @@ public class DictionaryPage extends CommonElements {
     }
 
     public void clickButtonByNameLeaveRoom() {
+        elementIsInvisible(10, "//div[@class='chat-container active']//span[contains(text(),'Leave Room')]");
         $("//div[@class='chat-container active']//span[contains(text(),'Leave Room')]").click();
     }
 
@@ -715,7 +719,7 @@ public class DictionaryPage extends CommonElements {
     public boolean waitUntillMessageComes() {
         int counter = 0;
         while ((counter <= 30) && !(checkThatMessagesHaveBeenIncreasedByOne())) {
-            waitABit(500);
+            waitABit(1000);
             counter++;
         }
         return checkThatMessagesHaveBeenIncreasedByOne();
@@ -731,15 +735,14 @@ public class DictionaryPage extends CommonElements {
     }
 
     public void openLastMessageInTempMail() {
-        String str = Integer.toString(idLastMessage + 1);
-        elementIsVisible(5, Locators.OPEN_MESSAGE_BY_NUMBER_LINK.replace("$1", str));
-        $(Locators.OPEN_MESSAGE_BY_NUMBER_LINK.replace("$1", str)).click();
-        waitMSeconds(3000);
+        String idOfLastMessage = Integer.toString(idLastMessage + 1);
+        elementIsVisible(5, Locators.OPEN_MESSAGE_BY_NUMBER_LINK.replace("$1", idOfLastMessage));
+        $(Locators.OPEN_MESSAGE_BY_NUMBER_LINK.replace("$1", idOfLastMessage)).click();
+
 
     }
 
     public String copyGeneratePasswordToClipboard() {
-
         return $(Locators.GENERATE_PASSWORD_CONTAINER).getText();
     }
 
@@ -759,6 +762,67 @@ public class DictionaryPage extends CommonElements {
     public String valueOfUnreadMessages(String userName) {
         elementIsInvisible(5, Locators.UNREAD_MESSAGES.replace("$1", userName));
         return $(Locators.UNREAD_MESSAGES.replace("$1", userName)).getText();
+    }
+
+    public void userSendRandomMessageToChat(String randomMessage) {
+        $(Locators.TYPE_MESSAGE_HERE_INPUT_FIELD).typeAndEnter(randomMessage);
+    }
+
+
+    public void scrollChatToMessageOfNumber(String xpathOfMessageByNumber) {
+        $(xpathOfMessageByNumber).click();
+        waitABit(5000);
+
+    }
+
+    public String xpathOfMessageInChatByNumber(String numberOfMessage) {
+        String chatIdNumber = $("//div[@class='chat-container active']//div[@class='chat-body']//div[@class='middle-element chat']").getAttribute("id");
+        String xpathOfList = "//div[@id='$1']//*[contains(@name,'message')]".replace("$1", chatIdNumber);
+        return "(" + xpathOfList + ")[" + numberOfMessage + "]";
+
+
+    }
+
+    public String xpathOfStarForMessageInChatByNumber(String numberOfMessage) {
+        String chatIdNumber = $("//div[@class='chat-container active']//div[@class='chat-body']//div[@class='middle-element chat']").getAttribute("id");
+        String xpathOfList = "//div[@id='$1']//*[contains(@name,'message')]//span[@class='star_border']".replace("$1", chatIdNumber);
+        return "(" + xpathOfList + ")[" + numberOfMessage + "]";
+
+    }
+
+    public boolean messageWithNumberIsVisible(String numberOfVisibleMessage) {
+
+        return $(xpathOfMessageInChatByNumber(numberOfVisibleMessage)).isVisible();
+
+//        return $(xpathOfMessageInChatByNumber(numberOfVisibleMessage)).shouldBeCurrentlyVisible();
+
+    }
+
+
+    public void staredMessageByNumber(String xpathOfStarForMessageInChatByNumber) {
+        $(xpathOfStarForMessageInChatByNumber).click();
+    }
+
+
+    public int getValueOfStarredMessagesBeforeAddNewStarredMessage() {
+        String s;
+        int valueOfStarredMessages;
+        if ($(Locators.VALUE_OF_STARRED_MESSAGE).getText().equals("")) {
+            valueOfStarredMessages = 0;
+            return valueOfStarredMessages;
+        } else {
+            s = $(Locators.VALUE_OF_STARRED_MESSAGE).getText();
+            valueOfStarredMessages = Integer.parseInt(s);
+            return valueOfStarredMessages;
+        }
+
+    }
+
+    public int getValueOfStarredMessagesAfterAddNewStarredMessage() {
+        waitABit(500);
+        String s = $(Locators.VALUE_OF_STARRED_MESSAGE).getText();
+        return Integer.parseInt(s);
+
     }
 }
 

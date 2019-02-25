@@ -55,6 +55,7 @@ public interface Locators {
     String USER_BY_USERNAME_IN_ROOM_ADMINISTRATOR_LIST = "(//div[contains(text(), \"Room administration\")]/..//div[@class='member-info'][.='$1'])[1]";
     String ASSIGT_NEW_ADMINISTRATOR_FIELD = "//input[@placeholder='Choose new administrator from room’s members']";
     String INVITE_NEW_MEMBER_TO_ALREADY_CREATED_ROOM = "//div[@class='ue ue-username ue-username-person'][contains(text(),'$1')]";
+    String VALUE_OF_STARRED_MESSAGE = "(//span[@class='rcp-option-value'])[3]";
 
 
     // *** REGISTRATION FORM ***

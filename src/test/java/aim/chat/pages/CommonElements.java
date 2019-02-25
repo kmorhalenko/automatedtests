@@ -52,6 +52,7 @@ public class CommonElements extends PageObject {
         }
     }
 
+
     public void waitUntilElementAppearsAndDissappears(String xpath) {
         if (elementIsVisible(20, xpath)) {
             elementIsInvisible(300, xpath);

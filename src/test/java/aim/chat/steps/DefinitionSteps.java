@@ -9,6 +9,7 @@ import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Test;
 
+import java.awt.*;
 import java.net.URISyntaxException;
 
 public class DefinitionSteps {
@@ -685,5 +686,50 @@ public class DefinitionSteps {
     @When("^type to password field generated password$")
     public void typeToPasswordFieldGeneratedPassword() {
         user.typeToPasswordFieldGeneratedPassword();
+    }
+
+    @When("^user send \"([^\"]*)\" random message to chat$")
+    public void userSendRandomMessageToChat(int value) throws Throwable {
+        user.userSendRandomMessageToChat(value);
+    }
+
+
+    @When("^scroll chat to message of number \"([^\"]*)\"$")
+    public void scrollChatToMessageOfNumber(String numberOfMessage) throws Throwable {
+        user.scrollChatToMessageOfNumber(numberOfMessage);
+    }
+
+    @Then("^message with number \"([^\"]*)\" is not visible$")
+    public void messageWithNumberIsNotVisible(String numberOfMessage) throws Throwable {
+        user.messageWithNumberIsNotVisible(numberOfMessage);
+    }
+
+
+    @Then("^message with number \"([^\"]*)\" is visible$")
+    public void messageWithNumberIsVisible(String numberOfMessage) throws Throwable {
+        user.messageWithNumberIsVisible(numberOfMessage);
+    }
+
+    @When("^stared message by number \"([^\"]*)\"$")
+    public void staredMessageByNumber(String numberOfMessage) throws Throwable {
+        user.staredMessageByNumber(numberOfMessage);
+    }
+
+
+
+    @Then("^value of starred message increased by (\\d+)$")
+    public void valueOfStarredMessageIncreasedBy(int increasedBy) {
+        user.valueOfStarredMessageIncreasedBy(increasedBy);
+    }
+
+
+    @When("^get value of starred messages before add new starred message$")
+    public void getValueOfStarredMessagesBeforeAddNewStarredMessage() {
+        user.getValueOfStarredMessagesBeforeAddNewStarredMessage();
+    }
+
+    @When("^get value of starred messages after add new starred message$")
+    public void getValueOfStarredMessagesAfterAddNewStarredMessage() {
+        user.getValueOfStarredMessagesAfterAddNewStarredMessage();
     }
 }

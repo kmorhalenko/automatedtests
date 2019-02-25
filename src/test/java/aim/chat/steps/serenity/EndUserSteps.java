@@ -9,6 +9,7 @@ import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.Step;
 import org.junit.Assert;
 
+import java.awt.*;
 import java.net.URISyntaxException;
 
 public class EndUserSteps extends PageObject {
@@ -383,7 +384,7 @@ public class EndUserSteps extends PageObject {
 
     @Step
     public void userHaveUnreadMessagesFromUser(String userName) {
-        Assert.assertTrue("user " + userName + " is not have unread messages",dictionaryPage.userHaveUnreadMessagesFromUser(userName));
+        Assert.assertTrue("user " + userName + " is not have unread messages", dictionaryPage.userHaveUnreadMessagesFromUser(userName));
         Assert.assertEquals("Icon about 1 unread message from" + userName + " is displayed", "1", dictionaryPage.valueOfUnreadMessages(userName));
     }
 
@@ -391,7 +392,6 @@ public class EndUserSteps extends PageObject {
     public void openUnreadMessageFromUser(String userName) {
         dictionaryPage.openUnreadMessageFromUser(userName);
     }
-
 
 
     @Step
@@ -748,19 +748,76 @@ public class EndUserSteps extends PageObject {
 
     }
 
+    @Step
     public void copyGeneratePasswordToClipboard() {
         generatedPassword = dictionaryPage.copyGeneratePasswordToClipboard();
     }
 
+    @Step
     public void typeToFieldGeneratedPassFromClipboard() {
         dictionaryPage.typeToFieldGeneratedPassFromClipboard(generatedPassword);
     }
 
+    @Step
     public void typeToLoginFieldValueOfTampMail() {
         dictionaryPage.typeToLoginFieldValueOfTampMail(clipboard);
     }
 
+    @Step
     public void typeToPasswordFieldGeneratedPassword() {
         dictionaryPage.typeToPasswordFieldGeneratedPassword(generatedPassword);
+    }
+
+    @Step
+    public void userSendRandomMessageToChat(int value) {
+
+        int counter = 0;
+        do {
+            String randomMessage = randomGenerator.randomGeneratorAlphaNumeric(25);
+            dictionaryPage.userSendRandomMessageToChat(randomMessage);
+            counter++;
+        }
+        while (counter < value);
+    }
+
+    @Step
+    public void scrollChatToMessageOfNumber(String numberOfMessage) throws AWTException {
+        dictionaryPage.scrollChatToMessageOfNumber(dictionaryPage.xpathOfMessageInChatByNumber(numberOfMessage));
+    }
+
+    @Step
+    public void messageWithNumberIsNotVisible(String numberOfMessage) {
+        Assert.assertFalse("Message is visible", dictionaryPage.messageWithNumberIsVisible(numberOfMessage));
+//        Assert.assertEquals("Message is visible", false, dictionaryPage.messageWithNumberIsVisible(numberOfMessage));
+    }
+
+    @Step
+    public void messageWithNumberIsVisible(String numberOfMessage) {
+        Assert.assertTrue("Message is not visible", dictionaryPage.messageWithNumberIsVisible(numberOfMessage));
+//        Assert.assertEquals("Message is not visible", true, dictionaryPage.messageWithNumberIsVisible(numberOfMessage));
+    }
+
+    @Step
+    public void staredMessageByNumber(String numberOfMessage) {
+        dictionaryPage.staredMessageByNumber(dictionaryPage.xpathOfStarForMessageInChatByNumber(numberOfMessage));
+
+    }
+
+    @Step
+
+    public void valueOfStarredMessageIncreasedBy(int increasedBy) {
+        int numBefore = (int) Serenity.getCurrentSession().get("START NUMBER");
+        Assert.assertEquals("Value of starred messages is not same",
+                numBefore + increasedBy,
+                dictionaryPage.getValueOfStarredMessagesAfterAddNewStarredMessage());
+    }
+
+    @Step
+    public void getValueOfStarredMessagesBeforeAddNewStarredMessage() {
+        Serenity.getCurrentSession().put("START NUMBER", dictionaryPage.getValueOfStarredMessagesBeforeAddNewStarredMessage());
+    }
+
+    public void getValueOfStarredMessagesAfterAddNewStarredMessage() {
+        dictionaryPage.getValueOfStarredMessagesAfterAddNewStarredMessage();
     }
 }
