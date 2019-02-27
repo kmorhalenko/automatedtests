@@ -732,4 +732,31 @@ public class DefinitionSteps {
     public void getValueOfStarredMessagesAfterAddNewStarredMessage() {
         user.getValueOfStarredMessagesAfterAddNewStarredMessage();
     }
+
+    @When("^click \"([^\"]*)\" link by number (\\d+)$")
+    public void clickLinkByNumber(String linkText, int numberOfMessage) throws Throwable {
+        user.clickLinkByNumber(linkText,numberOfMessage);
+    }
+
+    @When("^get text of message from starred message by number \"([^\"]*)\"$")
+    public void getTextOfMessageFromStarredMessageByNumber(String numberOfMessage) {
+        user.getTextOfMessageFromStarredMessageByNumber(numberOfMessage);
+    }
+
+
+    @Then("^chat scrolled to message and highlight it$")
+    public void chatScrolledToMessageAndHighlightIt() {
+        user.chatScrolledToMessageAndHighlightIt();
+
+    }
+
+    @When("^move mouse to starred message by number \"([^\"]*)\"$")
+    public void moveMouseToStarredMessageByNumber(String numberOfMessage) throws Throwable {
+        user.moveMouseToStarredMessageByNumber(numberOfMessage);
+    }
+
+    @When("^delete room with name \"([^\"]*)\" if it already created$")
+    public void deleteRoomWithNameIfItAlreadyCreated(String roomName) throws Throwable {
+        user.deleteRoomWithNameIfItAlreadyCreated(roomName);
+    }
 }

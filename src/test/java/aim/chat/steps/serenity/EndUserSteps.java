@@ -567,7 +567,7 @@ public class EndUserSteps extends PageObject {
 
     @Step
     public void rightSlideBarIsOpened(String titleName) {
-        Assert.assertTrue("Right slide bar is not opened", dictionaryPage.rightSlideBarIsOpened(titleName));
+        Assert.assertEquals("Right slide bar is not opened", titleName, dictionaryPage.rightSlideBarIsOpened(titleName));
     }
 
     @Step
@@ -819,5 +819,37 @@ public class EndUserSteps extends PageObject {
 
     public void getValueOfStarredMessagesAfterAddNewStarredMessage() {
         dictionaryPage.getValueOfStarredMessagesAfterAddNewStarredMessage();
+    }
+
+    public void clickLinkByNumber(String linkText, int numberOfMessage) {
+        dictionaryPage.clickLinkByNumber(linkText, numberOfMessage);
+    }
+
+    public void getTextOfMessageFromStarredMessageByNumber(String numberOfMessage) {
+        Serenity.getCurrentSession().put("TEXT OF STARRED MESSAGE", dictionaryPage.getTextOfMessageFromStarredMessageByNumber(numberOfMessage));
+    }
+
+    public void chatScrolledToMessageAndHighlightIt() {
+        Assert.assertEquals("Message is not highlighted or chat not scrolled",
+                (String) Serenity.getCurrentSession().get("TEXT OF STARRED MESSAGE"),
+                dictionaryPage.getTextOfHighlightedMessage());
+    }
+
+    public void moveMouseToStarredMessageByNumber(String numberOfMessage) {
+        dictionaryPage.moveMouseToStarredMessageByNumber(numberOfMessage);
+
+    }
+
+    public void deleteRoomWithNameIfItAlreadyCreated(String roomName) {
+        if (commonElements.elementIsVisible(5, Locators.ROOM_IN_LEFT_SIDE_BAR.replace("$1", roomName))) {
+            dictionaryPage.openRoomWithName(roomName);
+            roomWithNameIsOpened(roomName);
+            dictionaryPage.clickButtonInRightSideBar("Room settings");
+            rightSlideBarIsOpened("Room settings");
+            dictionaryPage.clickButtonByNameDeleteRoom();
+            popupIsOpen("Delete Room" + roomName);
+            dictionaryPage.clickButtonByName("Delete");
+            roomWithNameIsDeleted(roomName);
+        }
     }
 }

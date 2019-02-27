@@ -10,9 +10,9 @@ import org.junit.runner.RunWith;
 //        "src/test/resources/features/consult_dictionary/TSUITE1.feature",
 //        "src/test/resources/features/consult_dictionary/TSUITE2.feature",
 //        "src/test/resources/features/consult_dictionary/TSUITE3.feature",
-        "src/test/resources/features/consult_dictionary/TSUITE4.feature",
+//        "src/test/resources/features/consult_dictionary/TSUITE4.feature",
 //        "src/test/resources/features/consult_dictionary/TSUITE5.feature",
-//        "src/test/resources/features/consult_dictionary/TSUITE8.feature",
+        "src/test/resources/features/consult_dictionary/TSUITE8.feature",
         "src/test/resources/features/consult_dictionary/TSUITE9.feature",
 
 },

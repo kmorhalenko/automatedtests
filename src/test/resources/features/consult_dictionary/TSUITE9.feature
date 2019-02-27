@@ -4,6 +4,8 @@ Feature: Adding to room and deleting from room users.
     Given the user is on the Chat login page
     Given login under the user
     Then chat has been opened
+#    Check that room is not created
+    When delete room with name "k_test_room" if it already created
 #   Creating room
     When click create room icon
     Then popup "Add Room" is open
@@ -63,6 +65,8 @@ Feature: Adding to room and deleting from room users.
     Given the user is on the Chat login page
     Given login under the user
     Then chat has been opened
+#    Check that room is not created
+    When delete room with name "k_test_room" if it already created
 #   Creating room
     When click create room icon
     Then popup "Add Room" is open

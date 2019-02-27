@@ -539,19 +539,24 @@ public class DictionaryPage extends CommonElements {
     }
 
     public void clickButtonInRightSideBar(String buttonName) {
+        elementIsVisible(5, Locators.RIGHT_SIDE_BAR_BUTTONS_BY_TITLE.replace("$1", buttonName));
         $(Locators.RIGHT_SIDE_BAR_BUTTONS_BY_TITLE.replace("$1", buttonName)).click();
+
+
     }
 
-    public boolean rightSlideBarIsOpened(String titleName) {
-        return $(Locators.RIGHT_SLIDE_BAR_BY_TITLE.replace("$1", titleName)).isVisible();
+    public String rightSlideBarIsOpened(String titleName) {
+        elementIsVisible(5, Locators.RIGHT_SLIDE_BAR_BY_TITLE.replace("$1", titleName));
+        return $(Locators.RIGHT_SLIDE_BAR_BY_TITLE.replace("$1", titleName)).getText();
     }
 
     public void clickButtonByNameDeleteRoom() {
-        elementIsInvisible(10, "//span[contains(text(), 'Delete Room')]");
+        elementIsInvisible(5, "//span[contains(text(), 'Delete Room')]");
         $("//span[contains(text(), 'Delete Room')]").click();
     }
 
     public boolean popupIsClosed(String titleName) {
+        elementIsVisible(5, Locators.MODAL_WINDOW_TITLE.replace("$1", titleName));
         return $(Locators.MODAL_WINDOW_TITLE.replace("$1", titleName)).isVisible();
     }
 
@@ -568,7 +573,6 @@ public class DictionaryPage extends CommonElements {
     }
 
     public void inviteMemberWhenRoomAlreadyCreated(String userName) {
-//        $(Locators.SEARCH_FIELD_WHEN_ADD_USER_TO_ROOM).type(userName)
         elementIsVisible(5, Locators.INVITE_NEW_MEMBER_OF_ROOM_SEARCH_FIELD);
         $(Locators.INVITE_NEW_MEMBER_OF_ROOM_SEARCH_FIELD).sendKeys(userName);
 
@@ -780,8 +784,8 @@ public class DictionaryPage extends CommonElements {
         String xpathOfList = "//div[@id='$1']//*[contains(@name,'message')]".replace("$1", chatIdNumber);
         return "(" + xpathOfList + ")[" + numberOfMessage + "]";
 
-
     }
+
 
     public String xpathOfStarForMessageInChatByNumber(String numberOfMessage) {
         String chatIdNumber = $("//div[@class='chat-container active']//div[@class='chat-body']//div[@class='middle-element chat']").getAttribute("id");
@@ -791,10 +795,7 @@ public class DictionaryPage extends CommonElements {
     }
 
     public boolean messageWithNumberIsVisible(String numberOfVisibleMessage) {
-
         return $(xpathOfMessageInChatByNumber(numberOfVisibleMessage)).isVisible();
-
-//        return $(xpathOfMessageInChatByNumber(numberOfVisibleMessage)).shouldBeCurrentlyVisible();
 
     }
 
@@ -805,14 +806,13 @@ public class DictionaryPage extends CommonElements {
 
 
     public int getValueOfStarredMessagesBeforeAddNewStarredMessage() {
-        String s;
+
         int valueOfStarredMessages;
         if ($(Locators.VALUE_OF_STARRED_MESSAGE).getText().equals("")) {
             valueOfStarredMessages = 0;
             return valueOfStarredMessages;
         } else {
-            s = $(Locators.VALUE_OF_STARRED_MESSAGE).getText();
-            valueOfStarredMessages = Integer.parseInt(s);
+            valueOfStarredMessages = Integer.parseInt($(Locators.VALUE_OF_STARRED_MESSAGE).getText());
             return valueOfStarredMessages;
         }
 
@@ -824,6 +824,40 @@ public class DictionaryPage extends CommonElements {
         return Integer.parseInt(s);
 
     }
+
+    public void clickLinkByNumber(String linkText, int numberOfMessage) {
+
+        String xpathForAllLinks = (Locators.LINK_BY_NAME.replace("$1", linkText));
+        String xpathForLinkByNumber = "(" + xpathForAllLinks + ")" + "[" + numberOfMessage + "]";
+        moveMouseToStarredMessageByNumber("1");
+        elementIsVisible(5, xpathForLinkByNumber);
+        $((WebElement) findBy(xpathForLinkByNumber)).click();
+
+    }
+
+    public String getTextOfMessageFromStarredMessageByNumber(String numberOfMessage) {
+        return $(Locators.STARRED_MESSAGE_TEXT_BY_NUMBER_OF_MESSAGE.replace("$1", numberOfMessage)).getText();
+    }
+
+    public String getTextOfHighlightedMessage() {
+
+        try {
+            elementIsInvisible(5, Locators.TEXT_OF_HIGHLIGHTED_MESSAGE_IF_MESSAGE_LAST_IN_CHAT);
+            return $(Locators.TEXT_OF_HIGHLIGHTED_MESSAGE_IF_MESSAGE_LAST_IN_CHAT).getText();
+        } catch (Throwable noFoundElement) {
+            elementIsVisible(5, Locators.TEXT_OF_HIGHLIGHTED_MESSAGE_IF_MESSAGE_NOT_LAST_IN_CHAT);
+            return $(Locators.TEXT_OF_HIGHLIGHTED_MESSAGE_IF_MESSAGE_NOT_LAST_IN_CHAT).getText();
+        }
+
+    }
+
+    public void moveMouseToStarredMessageByNumber(String numberOfMessage) {
+        Actions action = new Actions(getDriver());
+        WebElement message = getDriver().findElement(By.xpath(Locators.STARRED_MESSAGE_BY_NUMBER.replace("$1", numberOfMessage)));
+        action.moveToElement(message).build().perform();
+    }
+
+
 }
 
 
