@@ -45,7 +45,7 @@ public interface Locators {
     String ROOM_NAME = "//div[contains(@class,'channel-room-name')]//div[contains(@class,'channel-name')][.='$1']";
     String ROOM_IN_LEFT_SIDE_BAR = "//span[.='$1']";
     String RIGHT_SIDE_BAR_BUTTONS_BY_TITLE = "//*[@title='$1']";
-    String RIGHT_SLIDE_BAR_BY_TITLE = "//span[contains(text(),'$1')]";
+    String RIGHT_SLIDE_BAR_BY_TITLE = "(//span[contains(text(),'$1')])[$2]";
     String USER_IN_ROOM_MEMBERS = "//*[@class='chat-container active']//*[@class='search-members']/following-sibling::ul/div[descendant::*[.='$1']]";
     String ADD_NEW_USER_TO_ROOM_ICON = "//i[contains(@class,'material-icons 25 md-dark')]";
     String REMOVE_FROM_ROOM_BUTTON = "//ul[@class='members-list scroll-disable']//a[@role='menuitem'][contains(text(),'Remove from')]";
@@ -57,7 +57,9 @@ public interface Locators {
     String STARRED_MESSAGE_TEXT_BY_NUMBER_OF_MESSAGE = "(//div[@class='starred-message-text']/span/div/span)[$1]";
     String TEXT_OF_HIGHLIGHTED_MESSAGE_IF_MESSAGE_LAST_IN_CHAT = "//div[@class='message highlight last the-same is-stared-parent']//span[@class='LinkifyPlus']";
     String TEXT_OF_HIGHLIGHTED_MESSAGE_IF_MESSAGE_NOT_LAST_IN_CHAT = "//div[@class='message highlight the-same is-stared-parent']//span[@class='LinkifyPlus']";
+    String TEXT_OF_HIGHLIGHTED_MESSAGE_IF_MESSAGE_FIRST_IN_CHAT = "//div[@class='message highlight is-stared-parent']//span[@class='LinkifyPlus']";
     String STARRED_MESSAGE_BY_NUMBER = "(//div[@class='starred-message-text'])[$1]";
+    String DELETE_ROOM_BUTTON_IN_ROOM_SETTINGS_INRIGHT_SIDE_BAR = "(//span[contains(text(), 'Delete Room')])[$1]";
 
     // *** REGISTRATION FORM ***
 
@@ -72,7 +74,7 @@ public interface Locators {
     String CONFIRMATION_CODE_FIELD_REGISTRATION_PAGE = "//input[@placeholder='Email confirmation code']";
     String PASSWORD_FIELD_ONE_REGISTRATION_PAGE = "//*[@name='password']";
     String PASSWORD_FIELD_TWO_REGISTRATION_PAGE = "//*[@name='password2']";
-    String ERROR_MESSAGE = "//*[@class='text-danger']";
+
 
 
     // ***PROFILE SETTINGS ***
@@ -100,14 +102,14 @@ public interface Locators {
     //***ERROR MESSAGES ***
 
     String ERROR_MESSAGE_LOGIN_CANT_BE_EMPTY = "//div[contains(text(),\"Login can't be empty\")]";
+    String ERROR_MESSAGE = "//*[@class='text-danger']";
 
     //***CREATE ROOM***
 
     String DELETE_INVITED_MEMBER_WHEN_USER_CREATED_ROOM = "//div[contains(text(), '$1')]/..//div[@class='sc sc-chip']";
     String USER_NAME_IN_DROP_DOWN_MENU = "//div[@class='ue ue-username ue-username-person'][contains(text(),'$1')]";
     String ROOM_DESCRIPTION_FIELD_WHEN_CREATED_ROOM = "//textarea[@name='room-description']";
-    String RARIO_BUTTON_WHEN_CRATED_ROOM = "//label[.='$1']";
-    String DELETE_ROOM_BUTTON = "//span[contains(@class,'delete-room one-user')]";
+    String RADIO_BUTTON_WHEN_CRATED_ROOM = "//label[.='$1']";
     String FIELD_BY_LABLE_NAME_ROOM_CREATE_POPUP = "//*[@class=\"field-name\"] [contains(text(),\"$1\")]/..//input";
     String CHOOSE_NEW_ADMINISTRATOR_FIELD = "";
 
