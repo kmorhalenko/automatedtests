@@ -4,10 +4,12 @@ import aim.chat.Tools.RandomGenerator;
 import aim.chat.locators.Locators;
 import aim.chat.pages.CommonElements;
 import aim.chat.pages.DictionaryPage;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.Step;
 import org.junit.Assert;
 
+import java.awt.*;
 import java.net.URISyntaxException;
 
 public class EndUserSteps extends PageObject {
@@ -20,6 +22,7 @@ public class EndUserSteps extends PageObject {
     String clipboard = "";
     String confirmationCode = "";
     String randomNum = "";
+    String generatedPassword = "";
 
 
 //    @Step
@@ -157,7 +160,7 @@ public class EndUserSteps extends PageObject {
 
     @Step
     public void registrationPageOneIsOpen() {
-        dictionaryPage.registrationPageOneIsOpen();
+        Assert.assertTrue("page 1 of registration is not opened", dictionaryPage.registrationPageOneIsOpen());
     }
 
     @Step
@@ -381,7 +384,8 @@ public class EndUserSteps extends PageObject {
 
     @Step
     public void userHaveUnreadMessagesFromUser(String userName) {
-        Assert.assertEquals("user " + userName + " is not have unread messages", "1", dictionaryPage.userHaveUnreadMessagesFromUser(userName));
+        Assert.assertTrue("user " + userName + " is not have unread messages", dictionaryPage.userHaveUnreadMessagesFromUser(userName));
+        Assert.assertEquals("Icon about 1 unread message from" + userName + " is displayed", "1", dictionaryPage.valueOfUnreadMessages(userName));
     }
 
     @Step
@@ -389,9 +393,11 @@ public class EndUserSteps extends PageObject {
         dictionaryPage.openUnreadMessageFromUser(userName);
     }
 
+
     @Step
     public void iconAboutUnreadMessageFromIsNotDisplayed(String userName) {
-        Assert.assertFalse("Icon about unread message from" + userName + " is displayed", dictionaryPage.iconAboutUnreadMessageFromIsNotDisplayed(userName));
+
+        Assert.assertTrue("Icon about unread message from" + userName + " is displayed", dictionaryPage.iconAboutUnreadMessageFromIsNotDisplayed(userName));
     }
 
     @Step
@@ -486,7 +492,7 @@ public class EndUserSteps extends PageObject {
 
     @Step
     public void userNameInUserMenuIsChangedTo(String userName) {
-        Assert.assertEquals("User name not same", userName, dictionaryPage.userNameInUserMenuIsChangedTo());
+        Assert.assertEquals("User name not same", userName, dictionaryPage.userNameInUserMenuIsChangedTo(userName));
     }
 
     @Step
@@ -561,7 +567,7 @@ public class EndUserSteps extends PageObject {
 
     @Step
     public void rightSlideBarIsOpened(String titleName) {
-        Assert.assertTrue("Right slide bar is not opened", dictionaryPage.rightSlideBarIsOpened(titleName));
+        Assert.assertEquals("Right slide bar is not opened", titleName, dictionaryPage.rightSlideBarIsOpened(titleName));
     }
 
     @Step
@@ -691,7 +697,7 @@ public class EndUserSteps extends PageObject {
     @Step
     public void enterValidUserNameAndPasswords() {
         randomNum = randomGenerator.randomGeneratorNumeric(4);
-        String randomUserName = "tsetuser" + randomNum;
+        String randomUserName = "testuser" + randomNum;
         String randomPassword = "qwerty" + randomNum;
 
         dictionaryPage.enterUserNameWhenRegistrate(randomUserName);
@@ -701,5 +707,149 @@ public class EndUserSteps extends PageObject {
     @Step
     public void loginUnderARandomUser() {
         dictionaryPage.loginUnderARandomUser(randomNum, clipboard);
+    }
+
+    @Step
+    public void clickLink(String textLink) {
+        dictionaryPage.clickLink(textLink);
+    }
+
+    @Step
+    public void putNumberOfMessagesFromMailIntoCurrentSession() {
+        Serenity.getCurrentSession().put("MESSAGES", dictionaryPage.getAllMessagesFromMail().size());
+    }
+
+
+    @Step
+    public void newMessageWithSubjectIsCome(String subjectOfMessage) {
+
+//        int quantityOfAllMessagesFromCurrentSession = (int) Serenity.getCurrentSession().get("MESSAGES");
+
+        Assert.assertTrue("New message is not comes time is off", dictionaryPage.waitUntillMessageComes());
+
+//        Assert.assertEquals((quantityOfAllMessagesFromCurrentSession + 1), dictionaryPage.getAllMessagesFromMail().size());
+
+        Assert.assertTrue("New message with subject " + subjectOfMessage + " is not come", dictionaryPage.newMessageWithSubjectIsCome(subjectOfMessage));
+    }
+
+    @Step
+    public void enterRandomEmailToFieldEmail() {
+        dictionaryPage.enterRandomEmailToFieldEmail(clipboard);
+    }
+
+    @Step
+    public void updateMailListInTempMail() {
+        dictionaryPage.updateMailListInTempMail();
+    }
+
+    @Step
+    public void openLastMessageInTempMail() {
+        dictionaryPage.openLastMessageInTempMail();
+
+    }
+
+    @Step
+    public void copyGeneratePasswordToClipboard() {
+        generatedPassword = dictionaryPage.copyGeneratePasswordToClipboard();
+    }
+
+    @Step
+    public void typeToFieldGeneratedPassFromClipboard() {
+        dictionaryPage.typeToFieldGeneratedPassFromClipboard(generatedPassword);
+    }
+
+    @Step
+    public void typeToLoginFieldValueOfTampMail() {
+        dictionaryPage.typeToLoginFieldValueOfTampMail(clipboard);
+    }
+
+    @Step
+    public void typeToPasswordFieldGeneratedPassword() {
+        dictionaryPage.typeToPasswordFieldGeneratedPassword(generatedPassword);
+    }
+
+    @Step
+    public void userSendRandomMessageToChat(int value) {
+
+        int counter = 0;
+        do {
+            String randomMessage = randomGenerator.randomGeneratorAlphaNumeric(25);
+            dictionaryPage.userSendRandomMessageToChat(randomMessage);
+            counter++;
+        }
+        while (counter < value);
+    }
+
+    @Step
+    public void scrollChatToMessageOfNumber(String numberOfMessage) throws AWTException {
+        dictionaryPage.scrollChatToMessageOfNumber(dictionaryPage.xpathOfMessageInChatByNumber(numberOfMessage));
+    }
+
+    @Step
+    public void messageWithNumberIsNotVisible(String numberOfMessage) {
+        Assert.assertFalse("Message is visible", dictionaryPage.messageWithNumberIsVisible(numberOfMessage));
+//        Assert.assertEquals("Message is visible", false, dictionaryPage.messageWithNumberIsVisible(numberOfMessage));
+    }
+
+    @Step
+    public void messageWithNumberIsVisible(String numberOfMessage) {
+        Assert.assertTrue("Message is not visible", dictionaryPage.messageWithNumberIsVisible(numberOfMessage));
+//        Assert.assertEquals("Message is not visible", true, dictionaryPage.messageWithNumberIsVisible(numberOfMessage));
+    }
+
+    @Step
+    public void staredMessageByNumber(String numberOfMessage) {
+        dictionaryPage.staredMessageByNumber(dictionaryPage.xpathOfStarForMessageInChatByNumber(numberOfMessage));
+
+    }
+
+    @Step
+
+    public void valueOfStarredMessageIncreasedBy(int increasedBy) {
+        int numBefore = (int) Serenity.getCurrentSession().get("START NUMBER");
+        Assert.assertEquals("Value of starred messages is not same",
+                numBefore + increasedBy,
+                dictionaryPage.getValueOfStarredMessagesAfterAddNewStarredMessage());
+    }
+
+    @Step
+    public void getValueOfStarredMessagesBeforeAddNewStarredMessage() {
+        Serenity.getCurrentSession().put("START NUMBER", dictionaryPage.getValueOfStarredMessagesBeforeAddNewStarredMessage());
+    }
+
+    public void getValueOfStarredMessagesAfterAddNewStarredMessage() {
+        dictionaryPage.getValueOfStarredMessagesAfterAddNewStarredMessage();
+    }
+
+    public void clickLinkByNumber(String linkText, int numberOfMessage) {
+        dictionaryPage.clickLinkByNumber(linkText, numberOfMessage);
+    }
+
+    public void getTextOfMessageFromStarredMessageByNumber(String numberOfMessage) {
+        Serenity.getCurrentSession().put("TEXT OF STARRED MESSAGE", dictionaryPage.getTextOfMessageFromStarredMessageByNumber(numberOfMessage));
+    }
+
+    public void chatScrolledToMessageAndHighlightIt() {
+        Assert.assertEquals("Message is not highlighted or chat not scrolled",
+                (String) Serenity.getCurrentSession().get("TEXT OF STARRED MESSAGE"),
+                dictionaryPage.getTextOfHighlightedMessage());
+    }
+
+    public void moveMouseToStarredMessageByNumber(String numberOfMessage) {
+        dictionaryPage.moveMouseToStarredMessageByNumber(numberOfMessage);
+
+    }
+
+    public void deleteRoomWithNameIfItAlreadyCreated(String roomName) {
+        if (commonElements.elementIsVisible(5, Locators.ROOM_IN_LEFT_SIDE_BAR.replace("$1", roomName))) {
+            dictionaryPage.openRoomWithName(roomName);
+            roomWithNameIsOpened(roomName);
+            dictionaryPage.clickButtonInRightSideBar("Room settings");
+            rightSlideBarIsOpened("Room settings");
+            dictionaryPage.clickButtonByNameDeleteRoom();
+            popupIsOpen("Delete Room" + roomName);
+            dictionaryPage.clickButtonByName("Delete");
+            roomWithNameIsDeleted(roomName);
+        }
     }
 }

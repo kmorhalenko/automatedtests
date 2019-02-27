@@ -4,6 +4,8 @@ Feature: Creating  rooms
     Given the user is on the Chat login page
     Given login under the user
     Then chat has been opened
+    #    Check that room is not created
+    When delete room with name "1test_room" if it already created
     When click create room icon
     Then popup "Add Room" is open
     When type room name "1test_room" when crated room
@@ -15,6 +17,8 @@ Feature: Creating  rooms
     Given the user is on the Chat login page
     Given login under the user
     Then chat has been opened
+        #    Check that room is not created
+    When delete room with name "t_e_s_t_room" if it already created
 #   value 1
     When click create room icon
     Then popup "Add Room" is open
@@ -30,6 +34,8 @@ Feature: Creating  rooms
     Then popup "Delete Roomt_e_s_t_room" is open
     When click button by name "Delete"
     Then room with name "t_e_s_t_room" is deleted
+            #    Check that room is not created
+    When delete room with name "tes" if it already created
 #   Value 2
     When click create room icon
     Then popup "Add Room" is open
@@ -45,6 +51,8 @@ Feature: Creating  rooms
     Then popup "Delete Roomtes" is open
     When click button by name "Delete"
     Then room with name "tes" is deleted
+                #    Check that room is not created
+    When delete room with name "testroom11testroom11testroo" if it already created
 #   Value 3
     When click create room icon
     Then popup "Add Room" is open
@@ -65,6 +73,18 @@ Feature: Creating  rooms
     Given the user is on the Chat login page
     Given login under the user
     Then chat has been opened
+#    Check that room is not created
+    When delete room with name "testДroom" if it already created
+#    Check that room is not created
+    When delete room with name "test@room" if it already created
+#    Check that room is not created
+    When delete room with name "te" if it already created
+#    Check that room is not created
+    When delete room with name "testroom11testroom11testroom" if it already created
+#    Check that room is not created
+    When delete room with name "546" if it already created
+
+
     When click create room icon
     Then popup "Add Room" is open
     When type room name "testДroom" when crated room
@@ -79,13 +99,13 @@ Feature: Creating  rooms
     Then click button by name "Add" is disabled
 #   Value 3
     Then popup "Add Room" is open
-    When type room name "te" when crated room
+    When type room name "testroom11testroom11testroom" when crated room
     When choose radio button "Public Room" when created room
     Then error messages show
     Then click button by name "Add" is disabled
 #   Value 4
     Then popup "Add Room" is open
-    When type room name "testroom11testroom11testroom" when crated room
+    When type room name "te" when crated room
     When choose radio button "Public Room" when created room
     Then error messages show
     Then click button by name "Add" is disabled
@@ -100,20 +120,27 @@ Feature: Creating  rooms
     Given the user is on the Chat login page
     Given login under the user
     Then chat has been opened
+#    Check that room is not created
+    When delete room with name "kTEST_Room" if it already created
+#    Check that room is not created
+    When delete room with name "KtesT_room" if it already created
+#    Check that room is not created
+    When delete room with name "kTesT_rOOm" if it already created
+#    Create test room
     When click create room icon
     Then popup "Add Room" is open
     When type room name "kTEST_Room" when crated room
     When choose radio button "Public Room" when created room
     When click button by name "Add"
     Then room with name "kTEST_Room" is opened
-#    Value 1
+#    Value 2
     When click create room icon
     Then popup "Add Room" is open
     When type room name "KtesT_room" when crated room
     When choose radio button "Private Room" when created room
     Then error messages show
     Then click button by name "Add" is disabled
-#    Value 2
+#    Value 3
     Then popup "Add Room" is open
     When type room name "kTesT_rOOm" when crated room
     When choose radio button "Public Room" when created room
@@ -135,6 +162,8 @@ Feature: Creating  rooms
     Given the user is on the Chat login page
     Given login under the user
     Then chat has been opened
+#    Check that room is not created
+    When delete room with name "kTesT_rOOm" if it already created
     When click create room icon
     Then popup "Add Room" is open
     When type room name "kTesT_rOOm" when crated room

@@ -2,6 +2,8 @@ package aim.chat.locators;
 
 public interface Locators {
 
+    String GENERETED_PASSWORD_FIELD = "//input[@placeholder='Generated password']";
+
 
     //  *** LOGIN PAGE ***
 
@@ -33,10 +35,9 @@ public interface Locators {
     String BELL_ICON = "//div[@id='mute-menu-toggle']";
     String MUTE_DROP_DOWN_WINDOW = "//div[contains(@class,'dropdown open')]//ul[contains(@class,'')]";
     String MUTE_NOTIFICATONS_SWITCHER = "//span[contains(@class,'slider round')]";
-    String CHAT_MUTED_MESSAGE = "//div[@class = 'toast-title'][ contains(text(), 'Chat is muted')]";
-    String CHAT_UNMUTED_MESSAGE = "//div[@class = 'toast-title'][ contains(text(), 'Chat is unmuted')]";
     String MESSAGE_ABOUT_NOTIFICATIONS = "//div[@class = 'toast-title']";
     String SEARCH_FIELD = "//input[contains(@placeholder,'Search...')]";
+    String INVITE_NEW_MEMBER_OF_ROOM_SEARCH_FIELD = "//input[@placeholder='Search']";
     String USER_NAME_IN_USER_MENU = "//p[@class='username']";
     String CREATE_ROOM_BUTTON = "//a[@class='add-room-button']";
     String MODAL_WINDOW_TITLE = "//h4[@class='modal-title']";
@@ -52,34 +53,30 @@ public interface Locators {
     String USER_BY_USERNAME_IN_ROOM_ADMINISTRATOR_LIST = "(//div[contains(text(), \"Room administration\")]/..//div[@class='member-info'][.='$1'])[1]";
     String ASSIGT_NEW_ADMINISTRATOR_FIELD = "//input[@placeholder='Choose new administrator from room’s members']";
     String INVITE_NEW_MEMBER_TO_ALREADY_CREATED_ROOM = "//div[@class='ue ue-username ue-username-person'][contains(text(),'$1')]";
-
+    String VALUE_OF_STARRED_MESSAGE = "(//span[@class='rcp-option-value'])[3]";
+    String STARRED_MESSAGE_TEXT_BY_NUMBER_OF_MESSAGE = "(//div[@class='starred-message-text']/span/div/span)[$1]";
+    String TEXT_OF_HIGHLIGHTED_MESSAGE_IF_MESSAGE_LAST_IN_CHAT = "//div[@class='message highlight last the-same is-stared-parent']//span[@class='LinkifyPlus']";
+    String TEXT_OF_HIGHLIGHTED_MESSAGE_IF_MESSAGE_NOT_LAST_IN_CHAT = "//div[@class='message highlight the-same is-stared-parent']//span[@class='LinkifyPlus']";
+    String STARRED_MESSAGE_BY_NUMBER = "(//div[@class='starred-message-text'])[$1]";
 
     // *** REGISTRATION FORM ***
 
     String EMAIL_FIELD_REGISTRATION_FORM_ONE = "//*[@name='email']";
     String SUBMIT_BUTTON_REGISTRATION_PAGE = "//*[@type='submit']";
     String CANCEL_BUTTON_REGISTRATION_PAGE = "//*[@id='cancel-recovery']";
-    String BACK_TO_AUTORIZATION_LINK_REGISTRATION_PAGE = "//a[contains(text(),'Back to authorization')]";
     String LOGIN_FIELD_REGISTRATION_PAGE = "//input[@placeholder='Login']";
     String ERROR_MESSAGE_EMAIL_FIELD_REGISTRATION_PAGE = "//div[@class='text-danger']";
     String TEXT_AIM_PRO_SOFT_REGISTRATION_PAGE = "//div[@class='text-center']//h1[1]";
     String SUBMIT_BUTTON_SECOND_PAGE_OF_REGISTRATION = "//button[@type='submit']";
-    String LINK_SEND_AGAIN = "//a[@class='send-again']";
+    String LINK_BY_NAME = "//a[contains(text(),'$1')]";
     String CONFIRMATION_CODE_FIELD_REGISTRATION_PAGE = "//input[@placeholder='Email confirmation code']";
     String PASSWORD_FIELD_ONE_REGISTRATION_PAGE = "//*[@name='password']";
     String PASSWORD_FIELD_TWO_REGISTRATION_PAGE = "//*[@name='password2']";
     String ERROR_MESSAGE = "//*[@class='text-danger']";
 
 
-
     // ***PROFILE SETTINGS ***
-//
-//    String FIRST_NAME_FIELD = "//input[@name='firstName']";
-//    String LAST_NAME_FIELD = "//input[@name='lastName']";
-//    String PHONE_NUMBER_FIELD = "//input[@name='phone']";
-//    String SKYPE_FIELD = "//input[@name='skype']";
-//    String WHAT_I_DO_FIELD = "//input[@name='whatIDo']";
-//    String WHERE_I_AM_FILED = "//input[@name='whereIAm']";
+
     String SAVE_BUTTON = "//button[@type='button']";
     String CHANGE_AVATAR_BUTTON = "//label[contains(@class,'btn btn-default')]";
     String AVATAR_SAVE_BUTTON = "//div[@class='cropper']//div//button[@type='button'][contains(text(),'Save')]";
@@ -115,8 +112,6 @@ public interface Locators {
     String CHOOSE_NEW_ADMINISTRATOR_FIELD = "";
 
 
-
-
     //***TEMP MAIL***
     String FIELD_WITH_TEMP_EMAIL = "//input[@id='mail']";
     String SUBJECT_OF_MAIL = "//a[@class='title-subject']";
@@ -124,5 +119,9 @@ public interface Locators {
     String OPEN_MAIL_IF_IT_ONE = "//span[@class='glyphicon glyphicon-chevron-right']";
     String TEXT_OF_MESSAGE_WITH_CODE_OF_CONFIRMATION = "//p[contains(text(),'Here is your code confirmation')]";
     String OPEN_MESSAGE_BY_NUMBER_LINK = "(//a[@class='link'])[$1]";
+    String MESSAGES = "//*[@id='mails']//tbody//tr";
+    String BACK_TO_LIST_OF_MAILS_BUTTON = "//a[@class='linkbord']";
+    String GENERATE_PASSWORD_CONTAINER = "(//strong)[2]";
+
 }
 

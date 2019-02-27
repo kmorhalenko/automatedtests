@@ -1,12 +1,15 @@
 package aim.chat.steps;
 
 import aim.chat.steps.serenity.EndUserSteps;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
+import org.junit.Test;
 
+import java.awt.*;
 import java.net.URISyntaxException;
 
 public class DefinitionSteps {
@@ -631,5 +634,129 @@ public class DefinitionSteps {
     @When("^login under a random user$")
     public void loginUnderARandomUser() {
         user.loginUnderARandomUser();
+    }
+
+    @When("^click \"([^\"]*)\" link$")
+    public void clickLink(String textLink) throws Throwable {
+        user.clickLink(textLink);
+
+    }
+
+    @When("^put number of messages from mail into current session$")
+    public void putNumberOfMessagesFromMailIntoCurrentSession() {
+        user.putNumberOfMessagesFromMailIntoCurrentSession();
+    }
+
+    @Then("^new message with subject \"([^\"]*)\" is come$")
+    public void newMessageWithSubjectIsCome(String subjectOfMessage) throws Throwable {
+        user.newMessageWithSubjectIsCome(subjectOfMessage);
+    }
+
+    @When("^enter random email to field Email$")
+    public void enterRandomEmailToFieldEmail() {
+        user.enterRandomEmailToFieldEmail();
+
+    }
+
+    @When("^update mail list in temp mail$")
+    public void updateMailListInTempMail() {
+        user.updateMailListInTempMail();
+    }
+
+    @When("^open last message in temp mail$")
+    public void openLastMessageInTempMail() {
+        user.openLastMessageInTempMail();
+    }
+
+    @When("^copy generate password to clipboard$")
+    public void copyGeneratePasswordToClipboard() {
+        user.copyGeneratePasswordToClipboard();
+    }
+
+    @When("^type to field generated pass from clipboard$")
+    public void typeToFieldGeneratedPassFromClipboard() {
+        user.typeToFieldGeneratedPassFromClipboard();
+    }
+
+    @When("^type to login field value of tamp mail$")
+    public void typeToLoginFieldValueOfTampMail() {
+        user.typeToLoginFieldValueOfTampMail();
+    }
+
+    @When("^type to password field generated password$")
+    public void typeToPasswordFieldGeneratedPassword() {
+        user.typeToPasswordFieldGeneratedPassword();
+    }
+
+    @When("^user send \"([^\"]*)\" random message to chat$")
+    public void userSendRandomMessageToChat(int value) throws Throwable {
+        user.userSendRandomMessageToChat(value);
+    }
+
+
+    @When("^scroll chat to message of number \"([^\"]*)\"$")
+    public void scrollChatToMessageOfNumber(String numberOfMessage) throws Throwable {
+        user.scrollChatToMessageOfNumber(numberOfMessage);
+    }
+
+    @Then("^message with number \"([^\"]*)\" is not visible$")
+    public void messageWithNumberIsNotVisible(String numberOfMessage) throws Throwable {
+        user.messageWithNumberIsNotVisible(numberOfMessage);
+    }
+
+
+    @Then("^message with number \"([^\"]*)\" is visible$")
+    public void messageWithNumberIsVisible(String numberOfMessage) throws Throwable {
+        user.messageWithNumberIsVisible(numberOfMessage);
+    }
+
+    @When("^stared message by number \"([^\"]*)\"$")
+    public void staredMessageByNumber(String numberOfMessage) throws Throwable {
+        user.staredMessageByNumber(numberOfMessage);
+    }
+
+
+
+    @Then("^value of starred message increased by (\\d+)$")
+    public void valueOfStarredMessageIncreasedBy(int increasedBy) {
+        user.valueOfStarredMessageIncreasedBy(increasedBy);
+    }
+
+
+    @When("^get value of starred messages before add new starred message$")
+    public void getValueOfStarredMessagesBeforeAddNewStarredMessage() {
+        user.getValueOfStarredMessagesBeforeAddNewStarredMessage();
+    }
+
+    @When("^get value of starred messages after add new starred message$")
+    public void getValueOfStarredMessagesAfterAddNewStarredMessage() {
+        user.getValueOfStarredMessagesAfterAddNewStarredMessage();
+    }
+
+    @When("^click \"([^\"]*)\" link by number (\\d+)$")
+    public void clickLinkByNumber(String linkText, int numberOfMessage) throws Throwable {
+        user.clickLinkByNumber(linkText,numberOfMessage);
+    }
+
+    @When("^get text of message from starred message by number \"([^\"]*)\"$")
+    public void getTextOfMessageFromStarredMessageByNumber(String numberOfMessage) {
+        user.getTextOfMessageFromStarredMessageByNumber(numberOfMessage);
+    }
+
+
+    @Then("^chat scrolled to message and highlight it$")
+    public void chatScrolledToMessageAndHighlightIt() {
+        user.chatScrolledToMessageAndHighlightIt();
+
+    }
+
+    @When("^move mouse to starred message by number \"([^\"]*)\"$")
+    public void moveMouseToStarredMessageByNumber(String numberOfMessage) throws Throwable {
+        user.moveMouseToStarredMessageByNumber(numberOfMessage);
+    }
+
+    @When("^delete room with name \"([^\"]*)\" if it already created$")
+    public void deleteRoomWithNameIfItAlreadyCreated(String roomName) throws Throwable {
+        user.deleteRoomWithNameIfItAlreadyCreated(roomName);
     }
 }
