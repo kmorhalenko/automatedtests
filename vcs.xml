@@ -10,6 +10,14 @@
           <option name="url" value="https://github.com/kmorhalenko/automatedtests.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://git.aimprosoft.com" />
+          <option name="userName" value="k.morhalenko" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://git.aimprosoft.com/QA/test-project-for-kirill-morgalenko" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="$USER_HOME$/IdeaProjects" />
