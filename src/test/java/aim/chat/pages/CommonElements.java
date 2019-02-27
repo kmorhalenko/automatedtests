@@ -1,7 +1,10 @@
 package aim.chat.pages;
 
+import aim.chat.locators.Locators;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.PageObject;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.concurrent.TimeUnit;
@@ -59,6 +62,17 @@ public class CommonElements extends PageObject {
         }
     }
 
+    public void waitUntilTextOfElementIsChanged(String xpath) {
+        waitABit(100);
+        int counter = 0;
+        String value = $(xpath).getText();
+        while ($(xpath).getText().equals(value) && counter<=30) {
+            counter++;
+        }
+
+
+    }
+
     public boolean elementIsClicable(int waitSec, String xpath) {
         try {
             withTimeoutOf(waitSec, TimeUnit.SECONDS)
@@ -70,5 +84,11 @@ public class CommonElements extends PageObject {
         }
 
 
+    }
+
+    public void moveMouseToElementByXpath(String xpath) {
+        Actions action = new Actions(getDriver());
+        WebElement message = getDriver().findElement(org.openqa.selenium.By.xpath(xpath));
+        action.moveToElement(message).build().perform();
     }
 }

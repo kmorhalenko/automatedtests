@@ -799,7 +799,7 @@ public class EndUserSteps extends PageObject {
 
     @Step
     public void staredMessageByNumber(String numberOfMessage) {
-        dictionaryPage.staredMessageByNumber(dictionaryPage.xpathOfStarForMessageInChatByNumber(numberOfMessage));
+        dictionaryPage.staredMessageByNumber(dictionaryPage.xpathOfStarForMessageInChatByNumber(numberOfMessage),dictionaryPage.xpathOfMessageInChatByNumber(numberOfMessage));
 
     }
 
