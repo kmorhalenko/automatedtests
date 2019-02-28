@@ -1,0 +1,13 @@
+<application>
+  <component name="SettingsState">
+    <option name="gitlabServers">
+      <list>
+        <GitlabServer>
+          <option name="apiUrl" value="https://git.aimprosoft.com/QA/test-project-for-kirill-morgalenko.git" />
+          <option name="preferredConnection" value="HTTPS" />
+          <option name="repositoryUrl" value="git.aimprosoft.com" />
+        </GitlabServer>
+      </list>
+    </option>
+  </component>
+</application>
