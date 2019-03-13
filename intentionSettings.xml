@@ -5,5 +5,6 @@
     <ignoreAction name="Java/Control Flow/Create switch statement" />
     <ignoreAction name="Java/Annotations/Edit method contract" />
     <ignoreAction name="Other/Flip ','" />
+    <ignoreAction name="Language Injection/Inject language or reference" />
   </component>
 </application>
