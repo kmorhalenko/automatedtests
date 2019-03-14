@@ -4,6 +4,7 @@
       <mapping ext="klib" type="ARCHIVE" />
       <removed_mapping pattern="Jenkinsfile" approved="true" type="Jenkins file" />
       <mapping pattern="Jenkinsfile" type="PLAIN_TEXT" />
+      <mapping pattern="" type="PLAIN_TEXT" />
       <removed_mapping pattern="Jenkinsfile" approved="true" type="Jenkins file" />
     </extensionMap>
   </component>
