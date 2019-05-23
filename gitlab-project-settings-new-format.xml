@@ -3,9 +3,9 @@
     <option name="gitlabServers">
       <list>
         <GitlabServer>
-          <option name="apiUrl" value="https://git.aimprosoft.com/QA/test-project-for-kirill-morgalenko.git" />
+          <option name="apiUrl" value="https://gitlab.croptrust.org/genesys-pgr/genesys-ui-testing.git" />
           <option name="preferredConnection" value="HTTPS" />
-          <option name="repositoryUrl" value="git.aimprosoft.com" />
+          <option name="repositoryUrl" value="gitlab.croptrust.org" />
         </GitlabServer>
       </list>
     </option>
