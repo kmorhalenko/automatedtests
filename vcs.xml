@@ -50,6 +50,10 @@
           <option name="url" value="https://github.com/damianszczepanik/maven-cucumber-reporting" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/allure-framework/allure-maven" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
     <option name="cloneParentDir" value="$USER_HOME$/IdeaProjects" />
